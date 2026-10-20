@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vector Embeddings & Pinecone: The Foundation of Modern AI Search</title>
+  <meta name="description" content="A comprehensive visual guide to Vector Embeddings, High-Dimensional Spaces, Approximate Nearest Neighbor (ANN) search, and Pinecone Vector Database architecture.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#05060a">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="guide.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body class="guide">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__left">
+        <button class="menu-btn" id="menu-open" type="button" aria-controls="drawer" aria-expanded="false">
+          <span class="menu-btn__bars" aria-hidden="true"></span>
+          Menu
+        </button>
+        <a class="topbar__brand" href="index.html">Aether AI</a>
+      </div>
+      <nav class="topbar__nav" aria-label="Jump to">
+        <a href="#what-is-embedding">What is an Embedding?</a>
+        <a href="#vector-space">Semantic Space</a>
+        <a href="#ann-algorithms">ANN &amp; HNSW</a>
+        <a href="#pinecone-deepdive">Pinecone Architecture</a>
+        <a href="#code">Python Code</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Off-canvas sidebar -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-label="Site menu">
+    <div class="drawer__head">
+      <a class="drawer__brand" href="index.html">Aether AI</a>
+      <button class="drawer__close" id="menu-close" type="button" aria-label="Hide sidebar">&times;</button>
+    </div>
+
+    <nav aria-label="Guides">
+      <ul class="drawer__list">
+        <li>
+          <a href="index.html">
+            <span class="drawer__title">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="index.html#roadmap">
+            <span class="drawer__title">Full Curriculum</span>
+            <span class="drawer__desc">All 7 stages at a glance</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html">
+            <span class="drawer__title">Master Guide</span>
+            <span class="drawer__desc">ML, Deep Learning, GenAI &amp; Agents</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="drawer__label">Read in this order</p>
+      <ul class="drawer__list">
+        <li>
+          <a href="learn.html#ml">
+            <span class="drawer__title"><span class="drawer__step">1</span>Machine Learning</span>
+            <span class="drawer__desc">Supervised, unsupervised &amp; RL &middot; 10 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#dl">
+            <span class="drawer__title"><span class="drawer__step">2</span>Deep Learning</span>
+            <span class="drawer__desc">Neural nets, CNNs &amp; Transformers &middot; 14 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#genai">
+            <span class="drawer__title"><span class="drawer__step">3</span>Generative AI</span>
+            <span class="drawer__desc">GANs, VAEs &amp; Diffusion models &middot; 12 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#llm">
+            <span class="drawer__title"><span class="drawer__step">4</span>Large Language Models</span>
+            <span class="drawer__desc">Self-attention, scaling &amp; RLHF &middot; 16 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="embeddings.html" aria-current="page">
+            <span class="drawer__title"><span class="drawer__step">5</span>Embeddings &amp; Pinecone</span>
+            <span class="drawer__desc">Vector databases &amp; ANN search &middot; 15 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="rag.html">
+            <span class="drawer__title"><span class="drawer__step">6</span>RAG Architecture</span>
+            <span class="drawer__desc">Retrieval pipelines &amp; rerankers &middot; 18 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#agentic">
+            <span class="drawer__title"><span class="drawer__step">7</span>Agentic AI</span>
+            <span class="drawer__desc">ReAct, tool calling &amp; multi-agent &middot; 14 min</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="drawer__label">Deep Dives</p>
+      <ul class="drawer__soon">
+        <li>Fine-tuning with LoRA &amp; QLoRA</li>
+        <li>Graph RAG with Neo4j</li>
+        <li>Model Quantization (GGUF &amp; AWQ)</li>
+        <li>AI Safety &amp; Guardrails</li>
+      </ul>
+    </nav>
+
+    <p class="drawer__foot">Short guides in plain English, written for engineers and builders.</p>
+  </aside>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+      <div class="article">
+        <span class="eyebrow">Deep Dive &middot; Vector Databases</span>
+        <h1>Vector Embeddings &amp; Pinecone, Explained</h1>
+        <p class="hero__lead">
+          Computers cannot read meaning; they only calculate numbers. Vector embeddings translate human thoughts, paragraphs, and images into geometric coordinates where concepts with similar meanings sit physically close together. Here is how high-dimensional vectors, HNSW indexing, and Pinecone work under the hood.
+        </p>
+        <div class="hero__meta">
+          <span>Stage 05</span> &middot; <span>15 min read</span> &middot; <span>Interactive Diagrams &amp; Python Code</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Metrics Row -->
+    <section class="article" style="margin-top: -30px; margin-bottom: 40px;">
+      <div class="metric-row">
+        <div class="metric-box">
+          <span class="val">1,536</span>
+          <span class="label">Dimensions (OpenAI text-3-small)</span>
+        </div>
+        <div class="metric-box">
+          <span class="val">&lt; 15ms</span>
+          <span class="label">p95 Query Latency in Pinecone</span>
+        </div>
+        <div class="metric-box">
+          <span class="val">O(log N)</span>
+          <span class="label">Search Complexity via HNSW</span>
+        </div>
+        <div class="metric-box">
+          <span class="val">99.8%</span>
+          <span class="label">Recall Rate vs Exact Linear Scan</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 1: What is an Embedding -->
+    <article class="article">
+      <section id="what-is-embedding">
+        <h2>1. What is an Embedding? From Words to Geometry</h2>
+        <p>
+          In traditional databases (PostgreSQL, MySQL), text is stored as literal string characters. If you search for <em>"how to fix a flat tire"</em>, a standard SQL index can only match rows containing the exact words <em>"flat"</em> or <em>"tire"</em>. It has no idea that <em>"puncture in automobile wheel"</em> means the exact same thing.
+        </p>
+        <p>
+          An <strong>embedding</strong> is a dense numerical vector (a list of floating-point numbers, such as <code>[0.024, -0.481, 0.198, ...]</code>) generated by a specialized neural network. The neural model maps the semantic meaning of text into a high-dimensional continuous space ($D$ dimensions).
+        </p>
+
+        <div class="callout">
+          <strong>The Core Axiom:</strong> Sentences with similar semantic meanings produce vectors that point in nearly identical directions in vector space, regardless of the vocabulary or language used.
+        </div>
+
+        <div class="table-wrap">
+          <table class="ai-table">
+            <thead>
+              <tr>
+                <th>Search Method</th>
+                <th>Underlying Technique</th>
+                <th>Query: "Canine medical care"</th>
+                <th>Finds: "Dog vet treatments"</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Lexical Search</strong></td>
+                <td>Exact keyword matching, BM25, TF-IDF</td>
+                <td>Looks for literal tokens "canine" &amp; "medical"</td>
+                <td>❌ <strong>Misses</strong> (Zero keyword overlap)</td>
+              </tr>
+              <tr>
+                <td><strong>Vector Search</strong></td>
+                <td>Dense neural embeddings &amp; cosine similarity</td>
+                <td>Calculates semantic angle in 1536D space</td>
+                <td>✅ <strong>Matches</strong> (Cosine similarity &gt; 0.89)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Distance Metrics: Measuring Closeness</h3>
+        <p>
+          Once words or paragraphs become vectors $u$ and $v$, how do we determine whether they are related? We measure geometric distance using three primary mathematical formulations:
+        </p>
+
+        <div class="feat-grid">
+          <div class="feat-card">
+            <span class="feat-card__tag">Most Popular for Text</span>
+            <h4>Cosine Similarity</h4>
+            <p>Measures the cosine of the angle $	heta$ between two vectors. It ranges from $-1$ to $+1$. It evaluates <strong>direction</strong> regardless of vector magnitude (length).</p>
+            <div class="code" style="margin-top:12px;font-size:13px;padding:8px 12px;">cos(θ) = (u · v) / (||u|| × ||v||)</div>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">Hardware Optimized</span>
+            <h4>Dot Product</h4>
+            <p>Multiplies corresponding elements and sums them. When vectors are normalized to unit length ($||u|| = 1$), dot product equals cosine similarity but runs significantly faster on GPUs.</p>
+            <div class="code" style="margin-top:12px;font-size:13px;padding:8px 12px;">dot(u, v) = ∑ (u_i × v_i)</div>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">Spatial Distance</span>
+            <h4>Euclidean Distance (L2)</h4>
+            <p>Measures the straight-line physical distance between two points in $D$-dimensional space. Shorter distance means higher similarity.</p>
+            <div class="code" style="margin-top:12px;font-size:13px;padding:8px 12px;">L2(u, v) = √ ∑ (u_i - v_i)²</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SVG DIAGRAM: Vector Space Projection -->
+      <section class="diag-card" id="vector-space">
+        <div class="diag-card__wrap">
+          <div class="diag-header">
+            <span class="diag-badge diag-badge--vector">Architecture Diagram 01</span>
+            <h3>High-Dimensional Semantic Vector Space</h3>
+            <p>Visualizing a 2D projection of vector embeddings. Notice how conceptual clusters form naturally and how the query vector finds its nearest neighbor via angular similarity ($	heta$).</p>
+          </div>
+
+          <div class="diag-svg-wrap">
+            <svg viewBox="0 0 920 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Dark Grid Background -->
+              <rect width="920" height="480" fill="#080a10" rx="10"/>
+              <defs>
+                <pattern id="grid-emb" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                </pattern>
+                <linearGradient id="grad-q" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="100%" stop-color="#818cf8"/>
+                </linearGradient>
+                <linearGradient id="grad-cand" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#4ade80"/>
+                  <stop offset="100%" stop-color="#22c55e"/>
+                </linearGradient>
+              </defs>
+              <rect width="920" height="480" fill="url(#grid-emb)"/>
+
+              <!-- Axis lines -->
+              <line x1="80" y1="420" x2="860" y2="420" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <line x1="80" y1="420" x2="80" y2="40" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <text x="830" y="445" fill="#64748b" font-family="monospace" font-size="12">Dimension X (Latent Topic 1)</text>
+              <text x="30" y="45" fill="#64748b" font-family="monospace" font-size="12" transform="rotate(-90 30,45)">Dimension Y (Latent Topic 2)</text>
+
+              <!-- Cluster 1: Cloud & DevOps -->
+              <circle cx="220" cy="180" r="110" fill="rgba(59, 130, 246, 0.05)" stroke="rgba(59, 130, 246, 0.2)" stroke-dasharray="6 6"/>
+              <text x="140" y="90" fill="#60a5fa" font-weight="600" font-size="13">Cluster: Infrastructure &amp; Cloud</text>
+              <circle cx="180" cy="150" r="6" fill="#3b82f6"/>
+              <text x="195" y="155" fill="#93c5fd" font-size="12">"AWS EKS Cluster"</text>
+              <circle cx="240" cy="190" r="6" fill="#3b82f6"/>
+              <text x="255" y="195" fill="#93c5fd" font-size="12">"Docker Container"</text>
+              <circle cx="170" cy="220" r="6" fill="#3b82f6"/>
+              <text x="90" y="235" fill="#93c5fd" font-size="12">"Kubernetes Pod"</text>
+
+              <!-- Cluster 2: Machine Learning & AI -->
+              <circle cx="680" cy="160" r="120" fill="rgba(168, 85, 247, 0.06)" stroke="rgba(168, 85, 247, 0.25)" stroke-dasharray="6 6"/>
+              <text x="610" y="65" fill="#c084fc" font-weight="600" font-size="13">Cluster: AI &amp; Neural Nets</text>
+              <circle cx="650" cy="140" r="6" fill="#a855f7"/>
+              <text x="665" y="145" fill="#d8b4fe" font-size="12">"Transformer Attention"</text>
+              <circle cx="720" cy="190" r="6" fill="#a855f7"/>
+              <text x="735" y="195" fill="#d8b4fe" font-size="12">"Backpropagation"</text>
+              <circle cx="630" cy="210" r="6" fill="#a855f7"/>
+              <text x="540" y="225" fill="#d8b4fe" font-size="12">"Gradient Descent"</text>
+
+              <!-- Cluster 3: Vector DB & Search (Target Cluster) -->
+              <circle cx="450" cy="300" r="115" fill="rgba(34, 197, 94, 0.07)" stroke="rgba(34, 197, 94, 0.3)" stroke-dasharray="6 6"/>
+              <text x="360" y="440" fill="#4ade80" font-weight="600" font-size="13">Cluster: Embeddings &amp; Vector DB</text>
+
+              <!-- Target vectors -->
+              <circle cx="420" cy="270" r="7" fill="url(#grad-cand)"/>
+              <text x="310" y="260" fill="#86efac" font-size="12" font-weight="600">Doc A: "Pinecone Indexing"</text>
+
+              <circle cx="480" cy="290" r="7" fill="url(#grad-cand)"/>
+              <text x="495" y="295" fill="#86efac" font-size="12">Doc B: "HNSW Graph Search"</text>
+
+              <circle cx="440" cy="350" r="7" fill="url(#grad-cand)"/>
+              <text x="455" y="355" fill="#86efac" font-size="12">Doc C: "Cosine Distance"</text>
+
+              <!-- Origin & Query Vector -->
+              <circle cx="80" cy="420" r="4" fill="#f5f5f7"/>
+              <text x="88" y="415" fill="#94a3b8" font-size="11">Origin (0,0)</text>
+
+              <!-- Query Ray -->
+              <line x1="80" y1="420" x2="410" y2="274" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="3 3"/>
+              <!-- Doc A Ray -->
+              <line x1="80" y1="420" x2="475" y2="292" stroke="rgba(74, 222, 128, 0.5)" stroke-width="1.5"/>
+
+              <!-- Query Node -->
+              <circle cx="400" cy="265" r="9" fill="url(#grad-q)" stroke="#fff" stroke-width="2"/>
+              <text x="270" y="240" fill="#38bdf8" font-weight="700" font-size="13">Query: "How does Pinecone store vectors?"</text>
+
+              <!-- Angle arc theta -->
+              <path d="M 170 380 A 100 100 0 0 1 185 365" stroke="#facc15" stroke-width="2" fill="none"/>
+              <text x="195" y="375" fill="#facc15" font-weight="700" font-size="12">θ ≈ 4.8° (cos θ = 0.96)</text>
+
+              <!-- Distance connector -->
+              <line x1="400" y1="265" x2="420" y2="270" stroke="#f43f5e" stroke-width="2"/>
+              <rect x="360" y="195" width="130" height="26" rx="6" fill="#1e293b" stroke="#334155"/>
+              <text x="368" y="213" fill="#f43f5e" font-size="11" font-weight="700">Top-1 Match: 0.982</text>
+            </svg>
+          </div>
+
+          <div class="diag-takeaway">
+            <span class="icon">💡</span>
+            <div>
+              <strong>Visual Takeaway:</strong> High-dimensional embeddings cluster documents by conceptual theme rather than string syntax. Even though the query didn't mention "HNSW" or "Cosine", its query vector lands directly inside the Vector DB semantic cluster!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 2: Why Traditional Databases Fail -->
+      <section id="ann-algorithms">
+        <h2>2. Why Traditional Databases Fail: The Need for ANN</h2>
+        <p>
+          If you have 10,000,000 documents and each document has a 1,536-dimensional vector, an <strong>exact k-Nearest Neighbors (kNN)</strong> query requires calculating 1,536 multiplications and additions against all 10 million vectors:
+        </p>
+        <div class="code">
+          10,000,000 vectors × 1,536 dimensions = 15.36 Billion floating-point operations per query!
+        </div>
+        <p>
+          At 100 queries per second, exact search melts CPUs and brings database latencies to 5–10 seconds. Furthermore, standard $B$-Tree indexes only work on ordered 1D scalar data (where $A &lt; B$). In 1,536 dimensions, there is no natural spatial order—this is the infamous <strong>Curse of Dimensionality</strong>.
+        </p>
+
+        <h3>Approximate Nearest Neighbor (ANN)</h3>
+        <p>
+          To make real-time AI possible, vector databases make a deliberate engineering trade-off: <strong>give up 0.1% exactness in exchange for 100x faster search speeds</strong>. Instead of scanning every vector ($O(N)$), ANN algorithms index vectors into searchable graph or tree structures that run in $O(\log N)$ time.
+        </p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step__num">1</div>
+            <div class="flow-step__content">
+              <h4>HNSW (Hierarchical Navigable Small World) — The Industry Standard</h4>
+              <p>Constructs a multi-layered geometric graph similar to a Skip List. The top layers have long-range sparse connections for rapid coarse navigation across the vector universe; lower layers have dense short-range connections for fine-grained nearest neighbor pinpointing. Pinecone, FAISS, and Weaviate use HNSW as their core engine.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__num">2</div>
+            <div class="flow-step__content">
+              <h4>IVF (Inverted File Index) — Voronoi Partitioning</h4>
+              <p>Clusters vector space into $K$ centroids using k-means clustering. At query time, the engine identifies the closest centroids and only scans vectors residing inside those specific Voronoi clusters, ignoring 95% of the database.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__num">3</div>
+            <div class="flow-step__content">
+              <h4>Product Quantization (PQ) — Memory Compression</h4>
+              <p>Compresses 32-bit floating point vectors into compact 8-bit quantized byte codes. Reduces memory footprint by up to 90%, enabling millions of vectors to fit directly into lightning-fast CPU L3 cache or RAM.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 3: Pinecone Architecture Deep-Dive -->
+      <section id="pinecone-deepdive">
+        <h2>3. Pinecone Deep-Dive: Cloud-Native Vector Engine</h2>
+        <p>
+          <strong>Pinecone</strong> is a purpose-built, managed vector database designed from scratch for real-time generative AI workloads. Unlike wrapping PostgreSQL with <code>pgvector</code> (which degrades under high concurrency and massive index sizes), Pinecone separates storage from compute.
+        </p>
+
+        <div class="feat-grid">
+          <div class="feat-card">
+            <span class="feat-card__tag">Architecture</span>
+            <h4>Serverless Decoupling</h4>
+            <p>Vector storage lives in high-durability cloud object stores (S3/GCS), while compute nodes dynamically spin up on-demand to execute HNSW graph traversals. You pay only for queries and stored vectors.</p>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">Multi-Tenancy</span>
+            <h4>Namespaces</h4>
+            <p>Isolate user data cleanly within a single index. A SaaS application can assign <code>namespace="org_tenant_941"</code> to guarantee complete data segregation with zero leakage.</p>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">High-Precision</span>
+            <h4>Metadata Pre-Filtering</h4>
+            <p>Every vector can carry arbitrary JSON metadata. Pinecone maintains an inverted index on metadata, filtering out irrelevant vectors <em>before</em> executing the ANN graph traversal, drastically increasing query precision.</p>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">Best of Both Worlds</span>
+            <h4>Hybrid Search (Dense + Sparse)</h4>
+            <p>Combines dense vectors (semantic intent) with sparse BM25 vectors (exact SKU, part number, error code) using Reciprocal Rank Fusion (RRF) for unbeatable search quality.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SVG DIAGRAM 2: Pinecone Ingestion & Query Lifecycle -->
+      <section class="diag-card">
+        <div class="diag-card__wrap">
+          <div class="diag-header">
+            <span class="diag-badge diag-badge--pinecone">Architecture Diagram 02</span>
+            <h3>Pinecone Ingestion &amp; Query Pipeline</h3>
+            <p>How raw unstructured text transforms into indexed vectors, and how real-time user queries execute sub-15ms filtered vector retrieval.</p>
+          </div>
+
+          <div class="diag-svg-wrap">
+            <svg viewBox="0 0 920 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="920" height="440" fill="#07090e" rx="10"/>
+
+              <!-- Ingestion Flow (Top) -->
+              <rect x="30" y="40" width="860" height="160" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/>
+              <text x="50" y="65" fill="#94a3b8" font-size="12" font-weight="700" letter-spacing="0.05em">INGESTION PIPELINE (OFFLINE / BATCH)</text>
+
+              <!-- Step 1: Raw text -->
+              <rect x="50" y="85" width="130" height="90" rx="8" fill="#111522" stroke="#1e293b"/>
+              <text x="65" y="115" fill="#f8fafc" font-size="12" font-weight="600">Documents</text>
+              <text x="65" y="135" fill="#64748b" font-size="10">PDF, MD, SQL</text>
+              <text x="65" y="155" fill="#64748b" font-size="10">Chunking (500t)</text>
+
+              <!-- Arrow -->
+              <path d="M 180 130 L 220 130" stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-p)"/>
+
+              <!-- Step 2: Embedding Model -->
+              <rect x="220" y="85" width="150" height="90" rx="8" fill="#111522" stroke="#38bdf8"/>
+              <text x="235" y="115" fill="#38bdf8" font-size="12" font-weight="600">Embedding Model</text>
+              <text x="235" y="135" fill="#94a3b8" font-size="10">text-embedding-3</text>
+              <text x="235" y="155" fill="#64748b" font-size="10">Outputs 1536D Floats</text>
+
+              <!-- Arrow -->
+              <path d="M 370 130 L 410 130" stroke="#38bdf8" stroke-width="2"/>
+
+              <!-- Step 3: Payload Construction -->
+              <rect x="410" y="85" width="160" height="90" rx="8" fill="#111522" stroke="#1e293b"/>
+              <text x="425" y="115" fill="#f8fafc" font-size="12" font-weight="600">Vector Record</text>
+              <text x="425" y="135" fill="#cbd5e1" font-size="10">id: "doc_108"</text>
+              <text x="425" y="155" fill="#a855f7" font-size="10">metadata: {cat, date}</text>
+
+              <!-- Arrow -->
+              <path d="M 570 130 L 610 130" stroke="#4ade80" stroke-width="2"/>
+
+              <!-- Step 4: Pinecone Upsert -->
+              <rect x="610" y="75" width="260" height="110" rx="10" fill="#0b1712" stroke="#22c55e"/>
+              <text x="630" y="105" fill="#4ade80" font-size="13" font-weight="700">Pinecone Index (Serverless)</text>
+              <text x="630" y="125" fill="#86efac" font-size="11">• Multi-tenant Namespaces</text>
+              <text x="630" y="145" fill="#86efac" font-size="11">• HNSW Graph Construction</text>
+              <text x="630" y="165" fill="#86efac" font-size="11">• Inverted Metadata Index</text>
+
+              <!-- Query Flow (Bottom) -->
+              <rect x="30" y="230" width="860" height="170" rx="12" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/>
+              <text x="50" y="255" fill="#94a3b8" font-size="12" font-weight="700" letter-spacing="0.05em">QUERY PIPELINE (REAL-TIME RUNTIME)</text>
+
+              <!-- User Query -->
+              <rect x="50" y="275" width="150" height="90" rx="8" fill="#1e1b4b" stroke="#6366f1"/>
+              <text x="65" y="305" fill="#c7d2fe" font-size="12" font-weight="600">User Query</text>
+              <text x="65" y="325" fill="#e0e7ff" font-size="10">"How to refund order?"</text>
+              <text x="65" y="345" fill="#818cf8" font-size="10">filter: {status: 'active'}</text>
+
+              <!-- Arrow to embed -->
+              <path d="M 200 320 L 250 320" stroke="#818cf8" stroke-width="2"/>
+
+              <!-- Query Embedding -->
+              <rect x="250" y="275" width="140" height="90" rx="8" fill="#111522" stroke="#818cf8"/>
+              <text x="265" y="305" fill="#818cf8" font-size="12" font-weight="600">Embed Query</text>
+              <text x="265" y="325" fill="#94a3b8" font-size="10">Vectorizes prompt</text>
+              <text x="265" y="345" fill="#64748b" font-size="10">Latency: ~25ms</text>
+
+              <!-- Arrow into Pinecone -->
+              <path d="M 390 320 L 460 320" stroke="#4ade80" stroke-width="2"/>
+
+              <!-- Pinecone Search Node -->
+              <rect x="460" y="265" width="220" height="110" rx="8" fill="#0b1712" stroke="#22c55e"/>
+              <text x="475" y="295" fill="#4ade80" font-size="12" font-weight="700">ANN Search + Pre-filter</text>
+              <text x="475" y="315" fill="#cbd5e1" font-size="10">1. Apply metadata filter</text>
+              <text x="475" y="335" fill="#cbd5e1" font-size="10">2. HNSW Beam Traversal</text>
+              <text x="475" y="355" fill="#facc15" font-size="10">3. Rank Top-K by Cosine Score</text>
+
+              <!-- Arrow to result -->
+              <path d="M 680 320 L 730 320" stroke="#f59e0b" stroke-width="2"/>
+
+              <!-- Top-K Chunks -->
+              <rect x="730" y="275" width="140" height="90" rx="8" fill="#2d1b06" stroke="#f59e0b"/>
+              <text x="745" y="305" fill="#fbbf24" font-size="12" font-weight="600">Top-K Context</text>
+              <text x="745" y="325" fill="#fed7aa" font-size="10">Chunk 1: score 0.94</text>
+              <text x="745" y="345" fill="#fed7aa" font-size="10">Chunk 2: score 0.91</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 4: Complete Python Production Code -->
+      <section id="code">
+        <h2>4. Production Python Implementation</h2>
+        <p>
+          Below is a complete, production-ready script utilizing the official <code>pinecone</code> Python SDK (v5+) and OpenAI's embedding API. It sets up a serverless index, generates embeddings, performs batch upserts with rich metadata, and executes filtered vector search queries.
+        </p>
+
+        <div class="code">
+<span class="c"># Install dependencies: pip install pinecone openai</span>
+<span class="c">import os</span>
+<span class="c">from pinecone import Pinecone, ServerlessSpec</span>
+<span class="c">from openai import OpenAI</span>
+
+<span class="c"># Initialize clients</span>
+pc = Pinecone(api_key=os.environ.get(<span class="s">"PINECONE_API_KEY"</span>))
+ai = OpenAI(api_key=os.environ.get(<span class="s">"OPENAI_API_KEY"</span>))
+
+INDEX_NAME = <span class="s">"ai-knowledge-base"</span>
+
+<span class="c"># 1. Create Serverless Index if it doesn't already exist</span>
+existing_indexes = [idx[<span class="s">"name"</span>] for idx in pc.list_indexes()]
+
+if INDEX_NAME not in existing_indexes:
+    print(f<span class="s">"Creating index {INDEX_NAME}..."</span>)
+    pc.create_index(
+        name=INDEX_NAME,
+        dimension=1536,  <span class="c"># Matches OpenAI text-embedding-3-small</span>
+        metric=<span class="s">"cosine"</span>,  <span class="c"># Alternatives: "dotproduct", "euclidean"</span>
+        spec=ServerlessSpec(
+            cloud=<span class="s">"aws"</span>,
+            region=<span class="s">"us-east-1"</span>
+        )
+    )
+
+index = pc.Index(INDEX_NAME)
+
+<span class="c"># 2. Knowledge documents to ingest</span>
+documents = [
+    {
+        <span class="s">"id"</span>: <span class="s">"doc_rag_01"</span>,
+        <span class="s">"text"</span>: <span class="s">"Retrieval-Augmented Generation grounds LLM answers in external verified databases."</span>,
+        <span class="s">"category"</span>: <span class="s">"architecture"</span>,
+        <span class="s">"difficulty"</span>: <span class="s">"intermediate"</span>
+    },
+    {
+        <span class="s">"id"</span>: <span class="s">"doc_agent_02"</span>,
+        <span class="s">"text"</span>: <span class="s">"ReAct agents cycle through Thought, Action, and Observation to invoke tools autonomously."</span>,
+        <span class="s">"category"</span>: <span class="s">"agents"</span>,
+        <span class="s">"difficulty"</span>: <span class="s">"advanced"</span>
+    },
+    {
+        <span class="s">"id"</span>: <span class="s">"doc_embed_03"</span>,
+        <span class="s">"text"</span>: <span class="s">"Embeddings project words into a 1536-dimensional space where semantic angle represents meaning."</span>,
+        <span class="s">"category"</span>: <span class="s">"math"</span>,
+        <span class="s">"difficulty"</span>: <span class="s">"beginner"</span>
+    }
+]
+
+<span class="c"># 3. Generate embeddings & Upsert in batch</span>
+vectors_to_upsert = []
+for doc in documents:
+    response = ai.embeddings.create(
+        input=doc[<span class="s">"text"</span>],
+        model=<span class="s">"text-embedding-3-small"</span>
+    )
+    embedding = response.data[0].embedding
+    vectors_to_upsert.append({
+        <span class="s">"id"</span>: doc[<span class="s">"id"</span>],
+        <span class="s">"values"</span>: embedding,
+        <span class="s">"metadata"</span>: {
+            <span class="s">"text"</span>: doc[<span class="s">"text"</span>],
+            <span class="s">"category"</span>: doc[<span class="s">"category"</span>],
+            <span class="s">"difficulty"</span>: doc[<span class="s">"difficulty"</span>]
+        }
+    })
+
+<span class="c"># Upsert into a specific tenant namespace</span>
+index.upsert(vectors=vectors_to_upsert, namespace=<span class="s">"production-guides"</span>)
+print(f<span class="s">"Successfully upserted {len(vectors_to_upsert)} vectors."</span>)
+
+<span class="c"># 4. Query with semantic similarity + metadata filter</span>
+query_text = <span class="s">"How do autonomous AI loops use tools?"</span>
+query_emb = ai.embeddings.create(
+    input=query_text,
+    model=<span class="s">"text-embedding-3-small"</span>
+).data[0].embedding
+
+results = index.query(
+    namespace=<span class="s">"production-guides"</span>,
+    vector=query_emb,
+    top_k=2,
+    include_metadata=True,
+    filter={
+        <span class="s">"difficulty"</span>: {<span class="s">"$in"</span>: [<span class="s">"intermediate"</span>, <span class="s">"advanced"</span>]}
+    }
+)
+
+<span class="c"># Print matching results</span>
+print(<span class="s">"
+Top Matches:"</span>)
+for match in results[<span class="s">"matches"</span>]:
+    print(f<span class="s">"- [{match['score']:.4f}] {match['metadata']['text']}"</span>)
+        </div>
+      </section>
+
+      <!-- Best Practices & Recap -->
+      <section class="recap" style="margin-top:60px;">
+        <h2>Key Takeaways &amp; Best Practices</h2>
+        <ul>
+          <li><strong>Normalize your vectors:</strong> When embedding vectors have unit length ($||v|| = 1$), dot product calculation is mathematically equivalent to cosine similarity, unlocking massive GPU SIMD acceleration.</li>
+          <li><strong>Never upsert one-by-one:</strong> Always batch upsert vectors in chunks of 100 to 250 items to minimize HTTP roundtrip latency.</li>
+          <li><strong>Leverage metadata filtering:</strong> Storing text chunks and categories directly inside Pinecone metadata avoids having to make secondary SQL lookups for document text.</li>
+          <li><strong>Tune chunk overlap:</strong> When preparing text for embeddings, use a sliding window of 10–15% token overlap so semantic thoughts spanning across split boundaries are not lost.</li>
+        </ul>
+      </section>
+
+      <!-- Keep learning cards -->
+      <div class="more">
+        <p class="more__label">Keep learning</p>
+        <div class="more__grid">
+          <a href="rag.html">
+            <strong>Stage 6: RAG Architecture</strong>
+            <span>Connect your vector database to live LLMs with advanced rerankers and citation pipelines.</span>
+            <em>Next guide &rarr;</em>
+          </a>
+          <a href="learn.html#llm">
+            <strong>Stage 4: LLMs Deep Dive</strong>
+            <span>Explore transformer self-attention, context windows, and scaling laws.</span>
+            <em>Explore LLMs &rarr;</em>
+          </a>
+          <a href="learn.html#agentic">
+            <strong>Stage 7: Agentic AI</strong>
+            <span>Autonomous systems with memory, planning, and multi-agent coordination.</span>
+            <em>Explore Agents &rarr;</em>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="article">
+      <p><a href="index.html">&larr; Back to Aether AI Home</a> &middot; Built for engineers and AI architects.</p>
+    </div>
+  </footer>
+
+  <!-- Script for sidebar toggle and animations -->
+  <script>
+    (function () {
+      var body = document.body;
+      var openBtn = document.getElementById('menu-open');
+      var closeBtn = document.getElementById('menu-close');
+      var scrim = document.getElementById('scrim');
+      var drawer = document.getElementById('drawer');
+
+      var wide = window.matchMedia('(min-width: 1025px)');
+      var KEY = 'sidebar-closed';
+      var stored = null;
+      try { stored = localStorage.getItem(KEY); } catch (e) {}
+      if (stored === '1') body.classList.add('side-closed');
+
+      function syncAria() {
+        var visible = wide.matches ? !body.classList.contains('side-closed') : body.classList.contains('menu-open');
+        drawer.setAttribute('aria-hidden', String(!visible));
+        openBtn.setAttribute('aria-expanded', String(visible));
+      }
+      function setOpen(open) {
+        if (wide.matches) {
+          body.classList.toggle('side-closed', !open);
+          try { localStorage.setItem(KEY, open ? '0' : '1'); } catch (e) {}
+        } else {
+          body.classList.toggle('menu-open', open);
+          (open ? closeBtn : openBtn).focus();
+        }
+        syncAria();
+      }
+      function isOpen() {
+        return wide.matches ? !body.classList.contains('side-closed') : body.classList.contains('menu-open');
+      }
+      openBtn.addEventListener('click', function () { setOpen(!isOpen()); });
+      closeBtn.addEventListener('click', function () { setOpen(false); });
+      scrim.addEventListener('click', function () { setOpen(false); });
+      drawer.querySelectorAll('[data-close]').forEach(function (a) {
+        a.addEventListener('click', function () { if (!wide.matches) setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !wide.matches && body.classList.contains('menu-open')) setOpen(false);
+      });
+      var onChange = function () { body.classList.remove('menu-open'); syncAria(); };
+      if (wide.addEventListener) wide.addEventListener('change', onChange); else wide.addListener(onChange);
+      syncAria();
+    })();
+  </script>
+</body>
+</html>

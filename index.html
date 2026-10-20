@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aether AI — The complete AI guide, from basics to agentic systems</title>
+  <meta name="description" content="A complete library of plain-English AI guides: Machine Learning, Deep Learning, Generative AI, LLMs, and Agentic AI. Start with the Machine Learning guide.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#05060a">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="landing.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body class="home">
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <button class="menu-btn" id="menu-open" type="button" aria-controls="drawer" aria-expanded="false">
+        <span class="menu-btn__bars" aria-hidden="true"></span>
+        Menu
+      </button>
+      <a class="topbar__brand" href="index.html">Aether AI</a>
+      <span style="width:72px" aria-hidden="true"></span>
+    </div>
+  </header>
+
+  <!-- Off-canvas sidebar -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-label="Site menu">
+    <div class="drawer__head">
+      <a class="drawer__brand" href="index.html">Aether AI</a>
+      <button class="drawer__close" id="menu-close" type="button" aria-label="Hide sidebar">&times;</button>
+    </div>
+
+    <nav aria-label="AI Topics">
+      <ul class="drawer__list">
+        <li>
+          <a href="index.html" aria-current="page">
+            <span class="drawer__title">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#roadmap" data-close>
+            <span class="drawer__title">Full curriculum</span>
+            <span class="drawer__desc">All 5 topics at a glance</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html">
+            <span class="drawer__title">Deep-Dive Guide</span>
+            <span class="drawer__desc">ML · DL · GenAI · LLMs · Agents</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="drawer__label">Read in this order</p>
+      <ul class="drawer__list">
+        <li>
+          <a href="learn.html#ml">
+            <span class="drawer__title"><span class="drawer__step">1</span>Machine Learning</span>
+            <span class="drawer__desc">Supervised, unsupervised, RL &middot; 10 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#dl">
+            <span class="drawer__title"><span class="drawer__step">2</span>Deep Learning</span>
+            <span class="drawer__desc">CNNs, RNNs, Transformers &middot; 14 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#genai">
+            <span class="drawer__title"><span class="drawer__step">3</span>Generative AI</span>
+            <span class="drawer__desc">GANs, Diffusion, VAEs &middot; 12 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#llm">
+            <span class="drawer__title"><span class="drawer__step">4</span>Large Language Models</span>
+            <span class="drawer__desc">Training, attention, RLHF, LoRA &middot; 16 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="embeddings.html">
+            <span class="drawer__title"><span class="drawer__step">5</span>Embeddings &amp; Pinecone</span>
+            <span class="drawer__desc">Vector databases &amp; ANN search &middot; 15 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="rag.html">
+            <span class="drawer__title"><span class="drawer__step">6</span>RAG Architecture</span>
+            <span class="drawer__desc">Retrieval pipelines &amp; rerankers &middot; 18 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#agentic">
+            <span class="drawer__title"><span class="drawer__step">7</span>Agentic AI</span>
+            <span class="drawer__desc">Planning, tools, multi-agent &middot; 14 min</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="drawer__label">Coming soon</p>
+      <ul class="drawer__soon">
+        <li>Computer Vision in depth</li>
+        <li>Robotics & Embodied AI</li>
+        <li>AI Safety & Alignment</li>
+        <li>AI Infrastructure & MLOps</li>
+        <li>Edge AI & Quantization</li>
+      </ul>
+    </nav>
+
+    <p class="drawer__foot">Plain-English AI guides written for engineers who are just starting out — or levelling up.</p>
+  </aside>
+
+  <main>
+
+    <!-- ===== Hero ===== -->
+    <div class="stage-bg">
+      <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+      <section class="hero2">
+        <span class="badge reveal"><b></b> New to AI? You're in the right place</span>
+        <h1 class="reveal" data-d="1">Learn AI,<br><em>one clear guide at a time.</em></h1>
+        <p class="hero2__lead reveal" data-d="2">Plain English, real examples, no PhD required. Each guide takes about ten minutes to read.</p>
+        <div class="hero2__cta reveal" data-d="3">
+          <a class="btn btn--primary" href="learn.html#ml">Start with Machine Learning <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn--ghost" href="learn.html">Full AI Guide</a>
+          <a class="btn btn--ghost" href="#roadmap">See the curriculum</a>
+        </div>
+        <div class="quick reveal" data-d="3">
+          <p class="quick__label">Or jump straight to a topic</p>
+          <ul class="quick__list">
+            <li><a href="learn.html#ml" style="border-color:rgba(99,102,241,0.3);background:rgba(99,102,241,0.06);"><strong style="color:#a5b4fc">Machine Learning</strong><span>10 min read</span></a></li>
+            <li><a href="learn.html#dl"><strong>Deep Learning</strong><span>14 min read</span></a></li>
+            <li><a href="learn.html#genai"><strong>Generative AI</strong><span>12 min read</span></a></li>
+            <li><a href="learn.html#llm"><strong>LLMs</strong><span>16 min read</span></a></li>
+            <li><a href="embeddings.html"><strong>Embeddings &amp; Pinecone</strong><span>15 min read</span></a></li>
+            <li><a href="rag.html"><strong>RAG Architecture</strong><span>18 min read</span></a></li>
+            <li><a href="learn.html#agentic"><strong>Agentic AI</strong><span>14 min read</span></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="stats reveal" aria-label="Library at a glance">
+        <div><strong>5</strong><span>core topics</span></div>
+        <div><strong>40+</strong><span>articles planned</span></div>
+        <div><strong>5</strong><span>live now</span></div>
+      </div>
+
+      <!-- Tool / concept ribbon -->
+      <div class="marquee" aria-label="Concepts you will learn">
+        <div class="marquee__track">
+          <div class="marquee__set">
+            <span>Linear Regression</span><span>Neural Networks</span><span>Transformers</span><span>GANs</span><span>Diffusion Models</span><span>BERT</span><span>GPT-4</span><span>RAG</span><span>RLHF</span><span>LoRA</span><span>Agents</span><span>LangChain</span><span>Vector DBs</span><span>Embeddings</span><span>Attention</span><span>Backprop</span>
+          </div>
+          <div class="marquee__set" aria-hidden="true">
+            <span>Linear Regression</span><span>Neural Networks</span><span>Transformers</span><span>GANs</span><span>Diffusion Models</span><span>BERT</span><span>GPT-4</span><span>RAG</span><span>RLHF</span><span>LoRA</span><span>Agents</span><span>LangChain</span><span>Vector DBs</span><span>Embeddings</span><span>Attention</span><span>Backprop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Live now ===== -->
+    <section class="live wrap" id="live" aria-labelledby="live-title">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Available now</p>
+        <h2>Start with the ones that are ready.</h2>
+      </div>
+
+      <a class="live__card reveal" href="learn.html#ml" style="margin-bottom:24px">
+        <div>
+          <div class="live__top"><span class="pill">Live</span><span>Topic 01 · Foundations · 10 min read</span></div>
+          <h3 class="live__title">Machine Learning</h3>
+          <p class="live__sub">Teach computers to learn from data.</p>
+          <p class="live__text">Supervised, unsupervised, and reinforcement learning. Decision trees, SVMs, gradient boosting, k-means, and the math of loss minimisation — explained without intimidating notation.</p>
+          <span class="btn btn--primary">Read the guide <span aria-hidden="true">&rarr;</span></span>
+        </div>
+
+        <div class="live__art" role="img" aria-label="Preview: raw data flows through feature engineering into a model that outputs predictions.">
+          <div class="layers">
+            <div class="layer layer--cluster">
+              <span class="layer__name">DATASET · labelled examples</span>
+              <div class="layer layer--node">
+                <span class="layer__name">FEATURES · what we extract</span>
+                <div class="layer layer--pod">
+                  <span class="layer__name">MODEL · learns the pattern</span>
+                  <div class="layer layer--container">
+                    <span class="layer__name">PREDICTION · new data in, answer out</span>
+                    ŷ = f(x; θ)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="live__card reveal" href="learn.html#dl" style="margin-bottom:24px">
+        <div>
+          <div class="live__top"><span class="pill">Live</span><span>Topic 02 · Neural Networks · 14 min read</span></div>
+          <h3 class="live__title">Deep Learning</h3>
+          <p class="live__sub">Stacked layers that learn hierarchies.</p>
+          <p class="live__text">How neurons, activations, and backpropagation combine to form CNNs, RNNs, and the Transformer — the architecture powering every modern AI system from image recognition to GPT-4.</p>
+          <span class="btn btn--primary">Read the guide <span aria-hidden="true">&rarr;</span></span>
+        </div>
+
+        <div class="live__art" role="img" aria-label="Preview: input flows through hidden layers to produce an output prediction.">
+          <div class="layers">
+            <div class="layer layer--cluster">
+              <span class="layer__name">INPUT LAYER · raw data</span>
+              <div class="layer layer--node">
+                <span class="layer__name">HIDDEN LAYERS · learned features</span>
+                <div class="layer layer--pod">
+                  <span class="layer__name">ATTENTION HEADS · transformer block</span>
+                  <div class="layer layer--container">
+                    <span class="layer__name">OUTPUT · logits → softmax → class</span>
+                    Backprop updates weights
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="live__card reveal" href="learn.html#genai" style="margin-bottom:24px">
+        <div>
+          <div class="live__top"><span class="pill">Live</span><span>Topic 03 · Generative AI · 12 min read</span></div>
+          <h3 class="live__title">Generative AI</h3>
+          <p class="live__sub">Learn to synthesise new content from noise.</p>
+          <p class="live__text">GANs, VAEs, and Diffusion Models explained clearly. Why DALL·E 3 and Stable Diffusion produce photorealistic images, how Sora generates video, and where these models still struggle.</p>
+          <span class="btn btn--primary">Read the guide <span aria-hidden="true">&rarr;</span></span>
+        </div>
+
+        <div class="live__art" role="img" aria-label="Preview: random noise is iteratively denoised into a coherent image.">
+          <div class="layers">
+            <div class="layer layer--cluster">
+              <span class="layer__name">GAUSSIAN NOISE · random tensor x_T</span>
+              <div class="layer layer--node">
+                <span class="layer__name">U-NET DENOISER · 1000 steps</span>
+                <div class="layer layer--pod">
+                  <span class="layer__name">TEXT CONDITIONING · CLIP embeddings</span>
+                  <div class="layer layer--container">
+                    <span class="layer__name">OUTPUT IMAGE · x_0</span>
+                    Stable Diffusion · DALL·E 3
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="live__card reveal" href="learn.html#llm" style="margin-bottom:24px">
+        <div>
+          <div class="live__top"><span class="pill">Live</span><span>Topic 04 · Language Models · 16 min read</span></div>
+          <h3 class="live__title" id="live-title">LLMs</h3>
+          <p class="live__sub">Trillion-parameter language understanding.</p>
+          <p class="live__text">How GPT-4, Gemini, and Claude are pre-trained, aligned with RLHF, and served at scale. Covers RAG, fine-tuning with LoRA, Mixture of Experts, and chain-of-thought prompting.</p>
+          <span class="btn btn--primary">Read the guide <span aria-hidden="true">&rarr;</span></span>
+        </div>
+
+        <div class="live__art" role="img" aria-label="Preview: a prompt is tokenised, passed through transformer blocks, and decoded into text.">
+          <div class="layers">
+            <div class="layer layer--cluster">
+              <span class="layer__name">PRE-TRAINING · 10T+ token corpus</span>
+              <div class="layer layer--node">
+                <span class="layer__name">SFT · instruction fine-tuning</span>
+                <div class="layer layer--pod">
+                  <span class="layer__name">RLHF / DPO · human alignment</span>
+                  <div class="layer layer--container">
+                    <span class="layer__name">SERVING · speculative decoding</span>
+                    Token by token, 480 tok/s
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="live__card reveal" href="embeddings.html" style="margin-bottom:24px">
+        <div>
+          <div class="live__top"><span class="pill">Live</span><span>Topic 05 · Vector Databases · 15 min read</span></div>
+          <h3 class="live__title">Embeddings &amp; Pinecone</h3>
+          <p class="live__sub">How AI projects human meaning into high-dimensional geometry.</p>
+          <p class="live__text">Vector embeddings, cosine similarity, HNSW indexing graphs, metadata pre-filtering, and serverless Pinecone vector database architecture. Includes full Python SDK examples and SVG coordinate projections.</p>
+          <span class="btn btn--primary">Read the guide <span aria-hidden="true">&rarr;</span></span>
+        </div>
+
+        <div class="live__art" role="img" aria-label="Preview: raw documents are vectorized into a 1536-dimensional space and indexed with HNSW in Pinecone.">
+          <div class="layers">
+            <div class="layer layer--cluster">
+              <span class="layer__name">RAW DOCUMENT · enterprise text</span>
+              <div class="layer layer--node">
+                <span class="layer__name">EMBEDDING MODEL · 1,536-dim vectors</span>
+                <div class="layer layer--pod">
+                  <span class="layer__name">HNSW GRAPH · skip-list ANN search</span>
+                  <div class="layer layer--container">
+                    <span class="layer__name">PINECONE · serverless top-k lookup</span>
+                    <div class="layer__chips">
+                      <span class="chip">Cosine Angle θ</span>
+                      <span class="chip">Metadata Filter</span>
+                      <span class="chip">&lt;15ms Latency</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="live__card reveal" href="rag.html" style="margin-bottom:24px">
+        <div>
+          <div class="live__top"><span class="pill">Live</span><span>Topic 06 · Production Architecture · 18 min read</span></div>
+          <h3 class="live__title">RAG Architecture</h3>
+          <p class="live__sub">Eliminate hallucinations and connect LLMs to your private data.</p>
+          <p class="live__text">The complete guide to enterprise Retrieval-Augmented Generation: document chunking strategies, hybrid search, cross-encoder rerankers (Cohere), and continuous RAG evaluation using the Ragas triad.</p>
+          <span class="btn btn--primary">Read the guide <span aria-hidden="true">&rarr;</span></span>
+        </div>
+
+        <div class="live__art" role="img" aria-label="Preview: query undergoes rewrite, hybrid retrieval, cross-encoder reranking, and grounded LLM generation.">
+          <div class="layers">
+            <div class="layer layer--cluster">
+              <span class="layer__name">USER QUERY · raw intent</span>
+              <div class="layer layer--node">
+                <span class="layer__name">HYBRID RETRIEVAL · dense + BM25</span>
+                <div class="layer layer--pod">
+                  <span class="layer__name">CROSS-ENCODER · re-ranks Top-50 to Top-5</span>
+                  <div class="layer layer--container">
+                    <span class="layer__name">LLM SYNTHESIS · 100% grounded with citations</span>
+                    <div class="layer__chips">
+                      <span class="chip">Zero Hallucination</span>
+                      <span class="chip">Ragas Triad</span>
+                      <span class="chip">Audit Trail</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="live__card reveal" href="learn.html#agentic">
+        <div>
+          <div class="live__top"><span class="pill">Live</span><span>Topic 07 · Autonomous Agents · 14 min read</span></div>
+          <h3 class="live__title">Agentic AI</h3>
+          <p class="live__sub">AI that plans, acts, and iterates on its own.</p>
+          <p class="live__text">The ReAct loop, tool calling, memory systems, and multi-agent orchestration. See how AutoGen, LangGraph, and Devin coordinate multiple LLMs to complete complex, long-horizon tasks without hand-holding.</p>
+          <span class="btn btn--primary">Read the guide <span aria-hidden="true">&rarr;</span></span>
+        </div>
+
+        <div class="live__art" role="img" aria-label="Preview: an agent perceives, reasons, acts, and observes in a cycle.">
+          <div class="layers">
+            <div class="layer layer--cluster">
+              <span class="layer__name">PERCEPTION · input + tool results</span>
+              <div class="layer layer--node">
+                <span class="layer__name">LLM CORE · ReAct reasoning loop</span>
+                <div class="layer layer--pod">
+                  <span class="layer__name">TOOL CALLS · search · code · APIs</span>
+                  <div class="layer layer--container">
+                    <span class="layer__name">MEMORY · vector store · context</span>
+                    Goal achieved ✓
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- ===== Curriculum ===== -->
+    <section class="roadmap wrap" id="roadmap" aria-labelledby="roadmap-title">
+      <div class="sec-head reveal">
+        <p class="eyebrow">The full curriculum</p>
+        <h2 id="roadmap-title">Everything in AI.<br>In the right order.</h2>
+        <p>Five topics that take you from your first algorithm to deploying real autonomous agents. New guides are added as they go live.</p>
+      </div>
+
+      <div class="legend2 reveal" aria-hidden="true">
+        <span><i class="on"></i> Live now</span>
+        <span><i></i> Coming soon</span>
+      </div>
+
+      <div class="grid">
+
+        <article class="stage reveal">
+          <span class="stage__num">01</span>
+          <h3>Machine Learning</h3>
+          <p class="stage__desc">The statistical foundations that all AI builds on.</p>
+          <ul class="stage__list">
+            <li class="is-live"><a href="learn.html#ml">Supervised Learning <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#ml">Unsupervised Learning <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#ml">Reinforcement Learning <span class="pill">Live</span></a></li>
+            <li>Gradient Boosting in depth</li>
+            <li>Model evaluation & bias-variance</li>
+            <li>Feature engineering</li>
+          </ul>
+          <p class="stage__count">6 guides · 3 live</p>
+        </article>
+
+        <article class="stage reveal" data-d="1">
+          <span class="stage__num">02</span>
+          <h3>Deep Learning</h3>
+          <p class="stage__desc">Stacked layers that learn hierarchical representations.</p>
+          <ul class="stage__list">
+            <li class="is-live"><a href="learn.html#dl">CNNs & image recognition <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#dl">RNNs, LSTMs & sequences <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#dl">Transformers & attention <span class="pill">Live</span></a></li>
+            <li>Graph Neural Networks</li>
+            <li>Flash Attention 3</li>
+            <li>Quantisation & pruning</li>
+          </ul>
+          <p class="stage__count">6 guides · 3 live</p>
+        </article>
+
+        <article class="stage reveal" data-d="2">
+          <span class="stage__num">03</span>
+          <h3>Generative AI</h3>
+          <p class="stage__desc">Models that create new images, audio, and video.</p>
+          <ul class="stage__list">
+            <li class="is-live"><a href="learn.html#genai">GANs & adversarial training <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#genai">Diffusion models <span class="pill">Live</span></a></li>
+            <li>Flow Matching</li>
+            <li>Text-to-video (Sora, Veo)</li>
+            <li>Audio generation</li>
+            <li>3D & world models</li>
+          </ul>
+          <p class="stage__count">6 guides · 2 live</p>
+        </article>
+
+        <article class="stage reveal">
+          <span class="stage__num">04</span>
+          <h3>Large Language Models</h3>
+          <p class="stage__desc">Trillion-parameter models that understand and generate text.</p>
+          <ul class="stage__list">
+            <li class="is-live"><a href="learn.html#llm">Pre-training & scaling laws <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#llm">RLHF, DPO & alignment <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#llm">RAG pipelines <span class="pill">Live</span></a></li>
+            <li>LoRA & parameter-efficient fine-tuning</li>
+            <li>Mixture of Experts (MoE)</li>
+            <li>Speculative decoding</li>
+            <li>Evaluation & benchmarks</li>
+          </ul>
+          <p class="stage__count">7 guides · 3 live</p>
+        </article>
+
+        <article class="stage reveal" data-d="1">
+          <span class="stage__num">05</span>
+          <h3>Embeddings &amp; Pinecone</h3>
+          <p class="stage__desc">High-dimensional spaces, vector indexes &amp; similarity search.</p>
+          <ul class="stage__list">
+            <li class="is-live"><a href="embeddings.html">Vector Embeddings (1536D) <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="embeddings.html#vector-space">Cosine &amp; Dot Product Math <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="embeddings.html#ann-algorithms">HNSW &amp; IVF Indexing <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="embeddings.html#pinecone-deepdive">Pinecone Serverless Architecture <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="embeddings.html#code">Python SDK Ingestion <span class="pill">Live</span></a></li>
+            <li>Hybrid Search (Dense + BM25)</li>
+          </ul>
+          <p class="stage__count">6 guides · 5 live</p>
+        </article>
+
+        <article class="stage reveal" data-d="2">
+          <span class="stage__num">06</span>
+          <h3>RAG Architecture</h3>
+          <p class="stage__desc">Grounding LLMs on enterprise knowledge with zero hallucinations.</p>
+          <ul class="stage__list">
+            <li class="is-live"><a href="rag.html">Naive vs Advanced RAG <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="rag.html#architecture">End-to-End Pipeline Diagrams <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="rag.html#chunking">Chunking &amp; Windowing <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="rag.html#advanced">Cross-Encoder Rerankers <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="rag.html#evaluation">RAG Triad &amp; Ragas <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="rag.html#code">Production Python Pipeline <span class="pill">Live</span></a></li>
+          </ul>
+          <p class="stage__count">6 guides · 6 live</p>
+        </article>
+
+        <article class="stage reveal">
+          <span class="stage__num">07</span>
+          <h3>Agentic AI</h3>
+          <p class="stage__desc">Systems that plan, use tools, and act autonomously.</p>
+          <ul class="stage__list">
+            <li class="is-live"><a href="learn.html#agentic">ReAct &amp; reasoning loops <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#agentic">Tool calling &amp; function use <span class="pill">Live</span></a></li>
+            <li class="is-live"><a href="learn.html#agentic">Multi-agent orchestration <span class="pill">Live</span></a></li>
+            <li>Memory: episodic &amp; semantic</li>
+            <li>LangGraph &amp; AutoGen</li>
+            <li>Self-reflection &amp; Reflexion</li>
+          </ul>
+          <p class="stage__count">6 guides · 3 live</p>
+        </article>
+
+        <article class="stage reveal" data-d="1">
+          <span class="stage__num">08</span>
+          <h3>AI Infrastructure</h3>
+          <p class="stage__desc">Running models reliably in production.</p>
+          <ul class="stage__list">
+            <li>GPU clusters & distributed training</li>
+            <li>Model serving (vLLM, TGI)</li>
+            <li>Vector databases</li>
+            <li>MLOps & experiment tracking</li>
+            <li>Cost optimisation</li>
+          </ul>
+          <p class="stage__count">5 guides</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== Closing call ===== -->
+    <section class="final reveal" aria-labelledby="final-title">
+      <div class="final__box">
+        <h2 id="final-title">Ready when you are.</h2>
+        <p>Pick up where the curriculum points you. The first guides are waiting.</p>
+        <a class="btn btn--primary" href="learn.html#ml">Start with Machine Learning <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer sitefoot">
+    <div class="sitefoot__inner">
+      <div class="sitefoot__brand">
+        <a href="index.html">Aether AI</a>
+        <p>Plain-English AI guides, from your first algorithm to a live autonomous agent.</p>
+        <a class="sitefoot__home" href="index.html#roadmap">See the full curriculum &rarr;</a>
+      </div>
+      <nav aria-label="All guides">
+        <p class="sitefoot__label">All guides, in reading order</p>
+        <ol>
+          <li><a href="learn.html#ml">Machine Learning</a></li>
+          <li><a href="learn.html#dl">Deep Learning &amp; Neural Networks</a></li>
+          <li><a href="learn.html#genai">Generative AI</a></li>
+          <li><a href="learn.html#llm">Large Language Models</a></li>
+          <li><a href="embeddings.html">Vector Embeddings &amp; Pinecone</a></li>
+          <li><a href="rag.html">RAG Architecture &amp; Pipelines</a></li>
+          <li><a href="learn.html#agentic">Agentic AI</a></li>
+        </ol>
+      </nav>
+    </div>
+    <p class="sitefoot__fine">Simplified on purpose. Real AI systems have more moving parts, but these ideas are the foundation for all of them.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var openBtn = document.getElementById('menu-open');
+      var closeBtn = document.getElementById('menu-close');
+      var scrim = document.getElementById('scrim');
+      var drawer = document.getElementById('drawer');
+
+      var wide = window.matchMedia('(min-width: 1025px)');
+      var KEY = 'sidebar-closed';
+      var stored = null;
+      try { stored = localStorage.getItem(KEY); } catch (e) {}
+      if (stored === '1') body.classList.add('side-closed');
+
+      function syncAria() {
+        var visible = wide.matches ? !body.classList.contains('side-closed') : body.classList.contains('menu-open');
+        drawer.setAttribute('aria-hidden', String(!visible));
+        openBtn.setAttribute('aria-expanded', String(visible));
+      }
+      function setOpen(open) {
+        if (wide.matches) {
+          body.classList.toggle('side-closed', !open);
+          try { localStorage.setItem(KEY, open ? '0' : '1'); } catch (e) {}
+        } else {
+          body.classList.toggle('menu-open', open);
+          (open ? closeBtn : openBtn).focus();
+        }
+        syncAria();
+      }
+      function isOpen() {
+        return wide.matches ? !body.classList.contains('side-closed') : body.classList.contains('menu-open');
+      }
+      openBtn.addEventListener('click', function () { setOpen(!isOpen()); });
+      closeBtn.addEventListener('click', function () { setOpen(false); });
+      scrim.addEventListener('click', function () { setOpen(false); });
+      drawer.querySelectorAll('[data-close]').forEach(function (a) {
+        a.addEventListener('click', function () { if (!wide.matches) setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !wide.matches && body.classList.contains('menu-open')) setOpen(false);
+      });
+      var onChange = function () { body.classList.remove('menu-open'); syncAria(); };
+      if (wide.addEventListener) wide.addEventListener('change', onChange); else wide.addListener(onChange);
+      syncAria();
+
+      // Fade sections in as they scroll into view
+      var items = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        items.forEach(function (el) { io.observe(el); });
+      } else {
+        items.forEach(function (el) { el.classList.add('in'); });
+      }
+
+      // Soft light that follows the cursor over each stage card
+      document.querySelectorAll('.stage').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

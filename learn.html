@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Fundamentals — ML, Deep Learning, GenAI, LLMs & Agentic AI</title>
+  <meta name="description" content="A comprehensive visual guide to Machine Learning algorithms, Deep Learning neural networks, Generative AI, Large Language Models, and Agentic AI systems.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="learn.css">
+</head>
+<body>
+
+  <!-- Background Decor -->
+  <div class="bg-mesh"></div>
+
+  <!-- TOP NAV -->
+  <header class="topnav" id="topnav">
+    <div class="nav-wrap">
+      <a href="index.html" class="brand-link">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span>Aether<span class="brand-dot">.ai</span></span>
+      </a>
+
+      <nav class="chapter-nav" id="chapterNav" aria-label="Chapters">
+        <a href="#ml" class="cnav-link" data-chapter="1" style="--accent:var(--c-ml)">
+          <span class="cnav-num">01</span><span class="cnav-label">ML</span>
+        </a>
+        <a href="#dl" class="cnav-link" data-chapter="2" style="--accent:var(--c-dl)">
+          <span class="cnav-num">02</span><span class="cnav-label">Deep Learning</span>
+        </a>
+        <a href="#genai" class="cnav-link" data-chapter="3" style="--accent:var(--c-genai)">
+          <span class="cnav-num">03</span><span class="cnav-label">GenAI</span>
+        </a>
+        <a href="#llm" class="cnav-link" data-chapter="4" style="--accent:var(--c-llm)">
+          <span class="cnav-num">04</span><span class="cnav-label">LLMs</span>
+        </a>
+        <a href="#agentic" class="cnav-link" data-chapter="5" style="--accent:var(--c-agentic)">
+          <span class="cnav-num">05</span><span class="cnav-label">Agents</span>
+        </a>
+
+        <div class="cnav-dropdown" id="guidesDropdown">
+          <button class="cnav-link cnav-dd-toggle" id="guidesToggle" aria-expanded="false" aria-haspopup="true">
+            <span class="cnav-label">Guides</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="cnav-dd-menu" role="menu">
+            <span class="dd-group">Hands-on</span>
+            <a href="#genai-python" class="dd-item" role="menuitem"><span class="dd-dot" style="--accent:var(--c-llm)"></span>GenAI with Python</a>
+            <a href="#langchain" class="dd-item" role="menuitem"><span class="dd-dot" style="--accent:var(--c-llm)"></span>LangChain Basics</a>
+            <span class="dd-group">Deep dives</span>
+            <a href="embeddings.html" class="dd-item" role="menuitem"><span class="dd-dot" style="--accent:#c084fc"></span>Embeddings &amp; Pinecone <span class="dd-ext">↗</span></a>
+            <a href="rag.html" class="dd-item" role="menuitem"><span class="dd-dot" style="--accent:#38bdf8"></span>RAG Architecture <span class="dd-ext">↗</span></a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="nav-right">
+        <a href="index.html" class="btn-outline-sm" aria-label="Back to Home">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          <span class="btn-label">Home</span>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="chapterNav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROGRESS BAR -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="kicker-pill">
+        <span class="kicker-dot"></span>
+        <span>From Algorithms to Autonomous Agents</span>
+      </div>
+      <h1 class="page-hero-title">The Complete AI Landscape</h1>
+      <p class="page-hero-sub">
+        A structured deep-dive across every major layer of artificial intelligence — from classical algorithms to self-directed AI agents that reason, plan, and act.
+      </p>
+      <div class="hero-chapter-cards">
+        <a href="#ml" class="hcc hcc-ml">
+          <span class="hcc-num">01</span>
+          <strong>Machine Learning</strong>
+          <small>Supervised · Unsupervised · RL</small>
+        </a>
+        <a href="#dl" class="hcc hcc-dl">
+          <span class="hcc-num">02</span>
+          <strong>Deep Learning</strong>
+          <small>CNNs · RNNs · Transformers</small>
+        </a>
+        <a href="#genai" class="hcc hcc-genai">
+          <span class="hcc-num">03</span>
+          <strong>Generative AI</strong>
+          <small>GANs · VAEs · Diffusion</small>
+        </a>
+        <a href="#llm" class="hcc hcc-llm">
+          <span class="hcc-num">04</span>
+          <strong>LLMs</strong>
+          <small>Attention · RLHF · RAG</small>
+        </a>
+        <a href="#agentic" class="hcc hcc-agentic">
+          <span class="hcc-num">05</span>
+          <strong>Agentic AI</strong>
+          <small>Planning · Tools · Memory</small>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CHAPTER 01 — MACHINE LEARNING
+  ══════════════════════════════════════════ -->
+  <section class="chapter" id="ml" data-chapter="1">
+    <div class="container">
+      <div class="chapter-header ch-ml">
+        <div class="ch-badge">Chapter 01</div>
+        <h2>Machine Learning Algorithms</h2>
+        <p class="ch-desc">
+          Machine learning enables systems to learn patterns from data without being explicitly programmed. Every modern AI system is built on its foundations.
+        </p>
+      </div>
+
+      <!-- ML OVERVIEW SPLIT -->
+      <div class="split-layout">
+        <div class="split-text">
+          <h3>What is Machine Learning?</h3>
+          <p>Machine learning is the discipline of designing algorithms that improve through experience. Rather than programming explicit rules, ML systems are trained on datasets and extract statistical patterns to make decisions on unseen data.</p>
+          <p>The fundamental ML loop is: <strong>Data → Features → Model → Predictions → Evaluation → Refinement</strong>. Every algorithm variant operates within this cycle.</p>
+          <div class="info-tag-row">
+            <span class="info-tag">Supervised Learning</span>
+            <span class="info-tag">Unsupervised Learning</span>
+            <span class="info-tag">Reinforcement Learning</span>
+            <span class="info-tag">Semi-Supervised</span>
+            <span class="info-tag">Self-Supervised</span>
+          </div>
+        </div>
+        <div class="split-visual">
+          <div class="ml-cycle-diagram" aria-label="ML Training Cycle">
+            <div class="cycle-node cn-data" id="cn1">
+              <div class="cn-icon">📊</div><div class="cn-label">Raw Data</div>
+            </div>
+            <div class="cycle-arrow ca-1">→</div>
+            <div class="cycle-node cn-features" id="cn2">
+              <div class="cn-icon">🔬</div><div class="cn-label">Feature Engineering</div>
+            </div>
+            <div class="cycle-arrow ca-2">→</div>
+            <div class="cycle-node cn-model" id="cn3">
+              <div class="cn-icon">🧠</div><div class="cn-label">Model Training</div>
+            </div>
+            <div class="cycle-arrow ca-3">→</div>
+            <div class="cycle-node cn-eval" id="cn4">
+              <div class="cn-icon">📈</div><div class="cn-label">Evaluation</div>
+            </div>
+            <div class="cycle-arrow ca-4">↩</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- THREE PARADIGMS -->
+      <div class="paradigm-grid">
+        <!-- Supervised -->
+        <div class="paradigm-card pc-supervised">
+          <div class="pc-header">
+            <div class="pc-icon">🎯</div>
+            <h3>Supervised Learning</h3>
+          </div>
+          <p>Models learn from labeled training examples, mapping inputs to known outputs. The goal is to generalize this mapping to new, unseen inputs.</p>
+
+          <div class="algo-list">
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#6366F1"></div>
+              <div class="algo-content">
+                <strong>Linear Regression</strong>
+                <span>Predicts continuous values by fitting a hyperplane. Closed-form solution via OLS.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#818CF8"></div>
+              <div class="algo-content">
+                <strong>Logistic Regression</strong>
+                <span>Binary classification using sigmoid activation. Outputs probabilistic class membership.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#A5B4FC"></div>
+              <div class="algo-content">
+                <strong>Decision Trees & Random Forest</strong>
+                <span>Hierarchical feature splitting. RF ensembles reduce variance via bagging.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#C7D2FE"></div>
+              <div class="algo-content">
+                <strong>Gradient Boosting (XGBoost, LightGBM)</strong>
+                <span>Sequential weak learners correcting prior errors. State-of-the-art on tabular data.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#E0E7FF"></div>
+              <div class="algo-content">
+                <strong>Support Vector Machines (SVM)</strong>
+                <span>Maximizes margin hyperplane using kernel trick for non-linear boundaries.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pc-metric">
+            <span>Key Metrics:</span>
+            <code>Accuracy · Precision · Recall · F1 · AUC-ROC · RMSE</code>
+          </div>
+        </div>
+
+        <!-- Unsupervised -->
+        <div class="paradigm-card pc-unsupervised">
+          <div class="pc-header">
+            <div class="pc-icon">🔍</div>
+            <h3>Unsupervised Learning</h3>
+          </div>
+          <p>Discovers hidden structure and latent patterns in unlabeled data, without predefined correct answers.</p>
+
+          <div class="algo-list">
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#06B6D4"></div>
+              <div class="algo-content">
+                <strong>K-Means Clustering</strong>
+                <span>Partitions data into K clusters by minimizing intra-cluster variance via EM iteration.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#22D3EE"></div>
+              <div class="algo-content">
+                <strong>DBSCAN</strong>
+                <span>Density-based clustering, robust to arbitrary shapes and noise detection.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#67E8F9"></div>
+              <div class="algo-content">
+                <strong>PCA (Principal Component Analysis)</strong>
+                <span>Orthogonal projection reducing dimensionality while preserving maximum variance.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#A5F3FC"></div>
+              <div class="algo-content">
+                <strong>t-SNE / UMAP</strong>
+                <span>Non-linear embeddings for high-dimensional data visualization and manifold discovery.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#CFFAFE"></div>
+              <div class="algo-content">
+                <strong>Hierarchical Clustering</strong>
+                <span>Agglomerative bottom-up merging or divisive splitting creating dendrogram structures.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pc-metric">
+            <span>Key Metrics:</span>
+            <code>Silhouette Score · Calinski-Harabasz · Davies-Bouldin</code>
+          </div>
+        </div>
+
+        <!-- Reinforcement -->
+        <div class="paradigm-card pc-rl">
+          <div class="pc-header">
+            <div class="pc-icon">🎮</div>
+            <h3>Reinforcement Learning</h3>
+          </div>
+          <p>An agent learns to take actions in an environment to maximize cumulative reward signal, through trial, error, and delayed feedback.</p>
+
+          <div class="algo-list">
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#10B981"></div>
+              <div class="algo-content">
+                <strong>Q-Learning & DQN</strong>
+                <span>Learns action-value Q-function. DQN uses neural nets for high-dimensional state spaces.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#34D399"></div>
+              <div class="algo-content">
+                <strong>Policy Gradient (REINFORCE)</strong>
+                <span>Directly optimizes the policy π(a|s) using Monte-Carlo returns.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#6EE7B7"></div>
+              <div class="algo-content">
+                <strong>PPO (Proximal Policy Optimization)</strong>
+                <span>Clips policy updates for stable training. State-of-art for continuous control &amp; LLM alignment.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#A7F3D0"></div>
+              <div class="algo-content">
+                <strong>AlphaGo / AlphaZero</strong>
+                <span>MCTS + RL for superhuman game play. Self-play without human data.</span>
+              </div>
+            </div>
+            <div class="algo-item">
+              <div class="algo-dot" style="background:#D1FAE5"></div>
+              <div class="algo-content">
+                <strong>Model-Based RL (Dreamer, MuZero)</strong>
+                <span>Learns a world model for planning ahead. Superior sample efficiency.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pc-metric">
+            <span>Key Concepts:</span>
+            <code>State · Action · Reward · Policy π · Value V(s) · Q(s,a)</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- ML MATH SNIPPET -->
+      <div class="math-block">
+        <div class="math-header">
+          <span class="math-kicker">Core Mathematics</span>
+          <h3>The Loss Minimization Framework</h3>
+        </div>
+        <div class="math-grid">
+          <div class="math-item">
+            <div class="math-label">Gradient Descent Update Rule</div>
+            <div class="math-formula">θ<sub>t+1</sub> = θ<sub>t</sub> − η · ∇<sub>θ</sub>L(θ<sub>t</sub>)</div>
+            <div class="math-desc">Iteratively update parameters θ in direction of steepest loss descent, scaled by learning rate η.</div>
+          </div>
+          <div class="math-item">
+            <div class="math-label">MSE Loss (Regression)</div>
+            <div class="math-formula">L = (1/n) Σ (ŷᵢ − yᵢ)²</div>
+            <div class="math-desc">Average squared difference between predictions and true labels. Penalizes large deviations heavily.</div>
+          </div>
+          <div class="math-item">
+            <div class="math-label">Cross-Entropy Loss (Classification)</div>
+            <div class="math-formula">L = −Σ yᵢ · log(ŷᵢ)</div>
+            <div class="math-desc">Measures divergence between predicted probability distribution and ground truth one-hot labels.</div>
+          </div>
+          <div class="math-item">
+            <div class="math-label">Bias–Variance Tradeoff</div>
+            <div class="math-formula">Error = Bias² + Variance + Noise</div>
+            <div class="math-desc">Underfitting → high bias. Overfitting → high variance. The tradeoff determines model complexity.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ ML ALGORITHMS & BEST PRACTICES ═══ -->
+      <div class="kb" id="ml-algos">
+        <div class="kb-head">
+          <span class="kb-kicker">Machine Learning · Algorithms</span>
+          <h3>Algorithm Cheat-Sheet</h3>
+          <p>Pick the simplest algorithm that fits your data. Linear models and tree ensembles solve a surprising share of real-world problems.</p>
+        </div>
+
+        <div class="kb-table-wrap">
+          <table class="kb-table">
+            <thead><tr><th>Algorithm</th><th>Type</th><th>How It Works</th><th>Strengths</th><th>Weaknesses</th></tr></thead>
+            <tbody>
+              <tr><td>Linear Regression</td><td>Regression</td><td>Fits a line minimising squared error</td><td>Fast, interpretable</td><td>Assumes linearity</td></tr>
+              <tr><td>Logistic Regression</td><td>Classification</td><td>Sigmoid over linear score gives probability</td><td>Strong baseline, calibrated</td><td>Linear boundaries only</td></tr>
+              <tr><td>Decision Tree</td><td>Both</td><td>Recursive splits by information gain / Gini</td><td>Readable, no scaling needed</td><td>Overfits easily</td></tr>
+              <tr><td>Random Forest</td><td>Both</td><td>Many trees on bootstrap samples, averaged (bagging)</td><td>Robust, little tuning</td><td>Large, slower</td></tr>
+              <tr><td>XGBoost / LightGBM</td><td>Both</td><td>Trees built sequentially to fix prior errors (boosting)</td><td>State of the art on tabular data</td><td>Needs tuning</td></tr>
+              <tr><td>SVM</td><td>Both</td><td>Maximum-margin hyperplane, kernel trick</td><td>Good on small, high-dim data</td><td>Slow on big data</td></tr>
+              <tr><td>k-NN</td><td>Both</td><td>Vote of k closest points</td><td>Simple, no training</td><td>Slow inference, needs scaling</td></tr>
+              <tr><td>Naive Bayes</td><td>Classification</td><td>Bayes rule with independence assumption</td><td>Great for text, tiny data</td><td>Independence rarely true</td></tr>
+              <tr><td>K-Means</td><td>Clustering</td><td>Assign to nearest centroid, update, repeat</td><td>Fast, scalable</td><td>Must choose k, spherical clusters</td></tr>
+              <tr><td>DBSCAN</td><td>Clustering</td><td>Density-connected regions</td><td>Finds arbitrary shapes, outliers</td><td>Sensitive to eps</td></tr>
+              <tr><td>PCA</td><td>Dim. reduction</td><td>Project onto max-variance directions</td><td>Denoise, visualise</td><td>Linear only</td></tr>
+              <tr><td>Q-Learning / PPO</td><td>Reinforcement</td><td>Learn policy/value from rewards</td><td>Sequential decisions</td><td>Sample hungry, unstable</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="kb-sub">Model Selection Guide</h4>
+        <div class="kb-grid">
+          <div class="kb-card"><h5>📋 Tabular data</h5><p>Start with logistic/linear regression, then LightGBM or XGBoost. Usually beats deep learning here.</p></div>
+          <div class="kb-card"><h5>🏷️ Few labels</h5><p>Use transfer learning, semi-supervised or clustering, and consider active learning.</p></div>
+          <div class="kb-card"><h5>🔍 Need explanations</h5><p>Linear models, shallow trees, SHAP values for any model.</p></div>
+          <div class="kb-card"><h5>⚡ Real-time latency</h5><p>Linear models or small tree ensembles; distil big models.</p></div>
+        </div>
+
+        <h4 class="kb-sub">The ML Project Workflow</h4>
+        <ol class="kb-steps" style="padding:0;">
+          <li><strong>Define the problem</strong> — target, metric, baseline and what a wrong prediction costs.</li>
+          <li><strong>Collect &amp; split data</strong> — train / validation / test. Use time-based splits for temporal data.</li>
+          <li><strong>Explore &amp; clean</strong> — missing values, outliers, duplicates, class balance.</li>
+          <li><strong>Feature engineering</strong> — encode categoricals, scale numerics, build domain features.</li>
+          <li><strong>Train a baseline</strong> — dummy model, then a simple model, then complex ones.</li>
+          <li><strong>Cross-validate &amp; tune</strong> — k-fold CV with random or Bayesian search (Optuna).</li>
+          <li><strong>Evaluate on test once</strong> — report the right metric with confidence intervals.</li>
+          <li><strong>Deploy &amp; monitor</strong> — watch for data drift and retrain on schedule.</li>
+        </ol>
+
+        <h4 class="kb-sub">Evaluation Metrics</h4>
+        <div class="kb-table-wrap">
+          <table class="kb-table">
+            <thead><tr><th>Metric</th><th>Formula / Idea</th><th>Use When</th></tr></thead>
+            <tbody>
+              <tr><td>Accuracy</td><td>correct / total</td><td>Balanced classes only</td></tr>
+              <tr><td>Precision</td><td>TP / (TP + FP)</td><td>False alarms are costly (spam filter)</td></tr>
+              <tr><td>Recall</td><td>TP / (TP + FN)</td><td>Misses are costly (disease screening)</td></tr>
+              <tr><td>F1</td><td>2PR / (P + R)</td><td>Imbalanced classes, balance P and R</td></tr>
+              <tr><td>ROC-AUC / PR-AUC</td><td>Ranking quality across thresholds</td><td>PR-AUC for rare positives</td></tr>
+              <tr><td>RMSE / MAE / R²</td><td>Error magnitude / explained variance</td><td>Regression; MAE robust to outliers</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="kb-sub">Best Practices</h4>
+        <div class="kb-grid">
+          <div class="kb-card good"><h5>🚰 Prevent Data Leakage</h5><ul><li>Fit scalers/encoders on train only.</li><li>Use sklearn <code>Pipeline</code>.</li><li>Never use future info to predict the past.</li></ul></div>
+          <div class="kb-card good"><h5>⚖️ Imbalanced Data</h5><ul><li>Stratified splits.</li><li>Class weights or resampling (SMOTE).</li><li>Tune the decision threshold.</li></ul></div>
+          <div class="kb-card good"><h5>🧮 Overfitting</h5><ul><li>Cross-validation, regularisation (L1/L2).</li><li>Limit tree depth, early stopping.</li><li>More data beats fancier models.</li></ul></div>
+          <div class="kb-card good"><h5>🔁 Reproducibility</h5><ul><li>Fix random seeds; version data and code.</li><li>Track experiments with MLflow.</li></ul></div>
+          <div class="kb-card bad"><h5>🚫 Pitfalls</h5><ul><li>Tuning on the test set.</li><li>Reporting accuracy on imbalanced data.</li><li>Skipping the baseline.</li></ul></div>
+        </div>
+
+        <h4 class="kb-sub">Leak-Free scikit-learn Pipeline</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>pipeline.py</b><span>python · scikit-learn</span></div>
+<pre>from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+
+X, y = load_breast_cancer(return_X_y=True)
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
+
+pipe = Pipeline([
+    ("scale", StandardScaler()),
+    ("clf", RandomForestClassifier(random_state=42)),
+])
+
+print("CV F1:", cross_val_score(pipe, X_tr, y_tr, cv=5, scoring="f1").mean())
+
+search = GridSearchCV(pipe, {"clf__n_estimators": [100, 300], "clf__max_depth": [None, 8]}, cv=5, scoring="f1")
+search.fit(X_tr, y_tr)
+print(search.best_params_)
+print(classification_report(y_te, search.predict(X_te)))   # touch test set once</pre></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CHAPTER 02 — DEEP LEARNING
+  ══════════════════════════════════════════ -->
+  <section class="chapter" id="dl" data-chapter="2">
+    <div class="container">
+      <div class="chapter-header ch-dl">
+        <div class="ch-badge">Chapter 02</div>
+        <h2>Deep Learning &amp; Neural Networks</h2>
+        <p class="ch-desc">
+          Deep learning stacks layers of non-linear transformations to learn hierarchical representations directly from raw data — powering vision, speech, and language AI.
+        </p>
+      </div>
+
+      <!-- NEURON ANATOMY -->
+      <div class="split-layout reverse">
+        <div class="split-text">
+          <h3>How a Neuron Works</h3>
+          <p>A single artificial neuron computes a weighted sum of its inputs, adds a bias term, and passes the result through a non-linear activation function to produce an output signal.</p>
+          <p>Stacking millions of such neurons in deep hierarchies allows networks to learn arbitrary complex functions — from recognizing faces to generating human-quality text.</p>
+          <div class="activation-grid">
+            <div class="act-item act-relu">ReLU<code>max(0,x)</code></div>
+            <div class="act-item act-sigmoid">Sigmoid<code>1/(1+e⁻ˣ)</code></div>
+            <div class="act-item act-tanh">Tanh<code>(eˣ−e⁻ˣ)/(eˣ+e⁻ˣ)</code></div>
+            <div class="act-item act-gelu">GeLU<code>x·Φ(x)</code></div>
+            <div class="act-item act-softmax">Softmax<code>eˣⁱ/Σeˣʲ</code></div>
+            <div class="act-item act-swish">Swish<code>x·σ(x)</code></div>
+          </div>
+        </div>
+        <div class="split-visual">
+          <!-- Animated Neural Network Diagram -->
+          <div class="nn-diagram" id="nnDiagram" aria-label="Neural Network diagram">
+            <div class="nn-layer layer-input">
+              <div class="nn-label-top">Input Layer</div>
+              <div class="nn-node input-node"></div>
+              <div class="nn-node input-node"></div>
+              <div class="nn-node input-node"></div>
+              <div class="nn-node input-node"></div>
+            </div>
+            <div class="nn-layer layer-hidden1">
+              <div class="nn-label-top">Hidden 1</div>
+              <div class="nn-node hidden-node"></div>
+              <div class="nn-node hidden-node"></div>
+              <div class="nn-node hidden-node"></div>
+              <div class="nn-node hidden-node"></div>
+              <div class="nn-node hidden-node"></div>
+            </div>
+            <div class="nn-layer layer-hidden2">
+              <div class="nn-label-top">Hidden 2</div>
+              <div class="nn-node hidden-node2"></div>
+              <div class="nn-node hidden-node2"></div>
+              <div class="nn-node hidden-node2"></div>
+              <div class="nn-node hidden-node2"></div>
+            </div>
+            <div class="nn-layer layer-output">
+              <div class="nn-label-top">Output</div>
+              <div class="nn-node output-node"></div>
+              <div class="nn-node output-node"></div>
+            </div>
+            <canvas id="nnCanvas" class="nn-canvas"></canvas>
+          </div>
+          <p class="diagram-caption">Feedforward neural network with backpropagation</p>
+        </div>
+      </div>
+
+      <!-- ARCHITECTURE CARDS -->
+      <h3 class="sub-heading">Key Neural Network Architectures</h3>
+      <div class="arch-grid">
+        <div class="arch-card">
+          <div class="arch-icon arch-cnn">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><rect x="7" y="7" width="10" height="10" rx="1"/>
+            </svg>
+          </div>
+          <h4>Convolutional Neural Network (CNN)</h4>
+          <p>Learns spatial feature hierarchies from grid-structured data. Convolutional layers detect local patterns (edges, textures, shapes). Used in image classification, object detection, and medical imaging.</p>
+          <div class="arch-layers">
+            <span>Conv2D</span> → <span>BatchNorm</span> → <span>ReLU</span> → <span>MaxPool</span> → <span>Dense</span>
+          </div>
+          <div class="arch-used-in">📸 Computer Vision · MRI Diagnosis · Autonomous Vehicles</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-icon arch-rnn">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+            </svg>
+          </div>
+          <h4>Recurrent Neural Network (RNN / LSTM)</h4>
+          <p>Maintains hidden state across sequential timesteps. LSTMs solve vanishing gradient through gated memory cells. Ideal for time-series, speech, and natural language processing.</p>
+          <div class="arch-layers">
+            <span>Embed</span> → <span>LSTM</span> → <span>Dropout</span> → <span>LSTM</span> → <span>Softmax</span>
+          </div>
+          <div class="arch-used-in">🎤 Speech Recognition · Stock Prediction · Machine Translation</div>
+        </div>
+
+        <div class="arch-card arch-card-accent">
+          <div class="arch-icon arch-transformer">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/>
+              <line x1="12" y1="2" x2="12" y2="22"/>
+              <line x1="2" y1="8.5" x2="22" y2="8.5"/>
+              <line x1="2" y1="15.5" x2="22" y2="15.5"/>
+            </svg>
+          </div>
+          <h4>Transformer Architecture ⚡</h4>
+          <p>Attention is All You Need (2017). Parallel self-attention across entire sequences. Positional encoding replaces recurrence. Scaled to billions of parameters — the engine of all modern AI.</p>
+          <div class="arch-layers">
+            <span>Embed</span> → <span>Multi-Head Attn</span> → <span>LayerNorm</span> → <span>FFN</span> → <span>Softmax</span>
+          </div>
+          <div class="arch-used-in">🚀 GPT-4 · BERT · Gemini · Claude · Whisper · DALL·E</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-icon arch-gnn">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+          </div>
+          <h4>Graph Neural Network (GNN)</h4>
+          <p>Operates on graph-structured data, aggregating neighbor embeddings to learn node, edge, and graph-level representations. Used in drug discovery and social networks.</p>
+          <div class="arch-layers">
+            <span>Node Embed</span> → <span>Message Pass</span> → <span>Aggregate</span> → <span>Update</span> → <span>Readout</span>
+          </div>
+          <div class="arch-used-in">💊 Drug Discovery · Fraud Detection · Recommendation Engines</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-icon arch-autoenc">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            </svg>
+          </div>
+          <h4>Autoencoder &amp; VAE</h4>
+          <p>Encoder compresses data to a latent space; decoder reconstructs it. Variational autoencoders impose a probabilistic prior over the latent space, enabling generative sampling.</p>
+          <div class="arch-layers">
+            <span>Input</span> → <span>Encoder</span> → <span>Latent z</span> → <span>Decoder</span> → <span>Output</span>
+          </div>
+          <div class="arch-used-in">🖼️ Image Compression · Anomaly Detection · Data Augmentation</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-icon arch-diffusion">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/>
+            </svg>
+          </div>
+          <h4>Diffusion Networks (U-Net)</h4>
+          <p>Iteratively denoise random Gaussian noise toward a learned data distribution. U-Net skip connections preserve spatial detail. The backbone of Stable Diffusion and DALL·E 3.</p>
+          <div class="arch-layers">
+            <span>Noise x_T</span> → <span>U-Net Denoise</span> → <span>x_T-1</span> → <span>...</span> → <span>x_0</span>
+          </div>
+          <div class="arch-used-in">🎨 DALL·E 3 · Stable Diffusion · Sora · Imagen Video</div>
+        </div>
+      </div>
+
+      <!-- BACKPROP MATH -->
+      <div class="math-block">
+        <div class="math-header">
+          <span class="math-kicker">Neural Network Mathematics</span>
+          <h3>Backpropagation &amp; Chain Rule</h3>
+        </div>
+        <div class="math-grid">
+          <div class="math-item">
+            <div class="math-label">Forward Pass</div>
+            <div class="math-formula">z<sup>l</sup> = W<sup>l</sup>a<sup>l-1</sup> + b<sup>l</sup><br>a<sup>l</sup> = σ(z<sup>l</sup>)</div>
+            <div class="math-desc">Inputs flow forward through weight matrices W and bias b, with activation function σ applied at each layer l.</div>
+          </div>
+          <div class="math-item">
+            <div class="math-label">Backward Pass (Chain Rule)</div>
+            <div class="math-formula">δ<sup>l</sup> = (W<sup>l+1</sup>)ᵀδ<sup>l+1</sup> ⊙ σ′(z<sup>l</sup>)</div>
+            <div class="math-desc">Error signal δ propagates backward, scaled by transposed weights and element-wise activation derivatives.</div>
+          </div>
+          <div class="math-item">
+            <div class="math-label">Weight Gradient</div>
+            <div class="math-formula">∂L/∂W<sup>l</sup> = δ<sup>l</sup>(a<sup>l-1</sup>)ᵀ</div>
+            <div class="math-desc">Gradient of loss with respect to weight matrix W at layer l — used directly for parameter updates.</div>
+          </div>
+          <div class="math-item">
+            <div class="math-label">Attention Score</div>
+            <div class="math-formula">Attn(Q,K,V) = softmax(QKᵀ/√dₖ)V</div>
+            <div class="math-desc">Transformer self-attention: scaled dot product between queries Q and keys K, weighting values V.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ DL BEST PRACTICES ═══ -->
+      <div class="kb kb-dl" id="dl-practices">
+        <div class="kb-head">
+          <span class="kb-kicker">Deep Learning · Best Practices</span>
+          <h3>Training Neural Networks the Right Way</h3>
+          <p>Deep learning works when data, architecture and optimisation are all sound. These are the habits that separate stable training from mysterious divergence.</p>
+        </div>
+
+        <h4 class="kb-sub">Choosing Components</h4>
+        <div class="kb-table-wrap">
+          <table class="kb-table">
+            <thead><tr><th>Component</th><th>Default Choice</th><th>Why / Alternatives</th></tr></thead>
+            <tbody>
+              <tr><td>Activation</td><td>ReLU / GELU</td><td>Avoids vanishing gradients. Use GELU/SiLU in transformers, Sigmoid/Softmax only at outputs.</td></tr>
+              <tr><td>Optimizer</td><td>AdamW</td><td>Robust default. SGD+momentum can generalise better for CNNs.</td></tr>
+              <tr><td>Learning rate</td><td>1e-3 (Adam), 1e-5 (fine-tune)</td><td>Most important hyper-parameter. Use warmup + cosine decay or OneCycle.</td></tr>
+              <tr><td>Initialisation</td><td>He / Xavier</td><td>Keeps activation variance stable across layers.</td></tr>
+              <tr><td>Normalisation</td><td>BatchNorm (CNN), LayerNorm (transformer)</td><td>Faster, more stable training.</td></tr>
+              <tr><td>Loss</td><td>CrossEntropy / MSE</td><td>Match the task. Use label smoothing and focal loss for imbalance.</td></tr>
+              <tr><td>Regularisation</td><td>Dropout, weight decay, augmentation</td><td>Fight overfitting; early stopping is free.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="kb-sub">Best-Practice Checklist</h4>
+        <div class="kb-grid">
+          <div class="kb-card good"><h5>🧪 Debug First</h5><ul><li>Overfit a single small batch — loss should go to ~0.</li><li>Check initial loss ≈ ln(num_classes).</li><li>Visualise inputs and labels.</li></ul></div>
+          <div class="kb-card good"><h5>📈 Optimisation</h5><ul><li>Gradient clipping (norm 1.0) for RNNs/transformers.</li><li>Mixed precision (bf16/fp16) for ~2× speed.</li><li>Gradient accumulation for big effective batches.</li></ul></div>
+          <div class="kb-card good"><h5>🗂️ Data</h5><ul><li>Normalise inputs; augment images/audio.</li><li>Split train/val/test <em>before</em> any processing.</li><li>Watch for label noise and leakage.</li></ul></div>
+          <div class="kb-card good"><h5>🔁 Transfer Learning</h5><ul><li>Start from pretrained weights (ResNet, ViT, BERT).</li><li>Freeze backbone, train head, then unfreeze with low LR.</li><li>Use LoRA to fine-tune large models cheaply.</li></ul></div>
+          <div class="kb-card good"><h5>📊 Monitoring</h5><ul><li>Track train/val loss, metrics and LR every epoch.</li><li>Use TensorBoard or Weights &amp; Biases.</li><li>Save checkpoints and seeds for reproducibility.</li></ul></div>
+          <div class="kb-card bad"><h5>🚫 Common Failures</h5><ul><li>Loss = NaN → LR too high or bad data.</li><li>Train ↓ val ↑ → overfitting.</li><li>Both stuck high → underfit, LR too low.</li><li>Forgetting <code>model.eval()</code> at inference.</li></ul></div>
+        </div>
+
+        <h4 class="kb-sub">Reference PyTorch Training Loop</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>train.py</b><span>python · pytorch</span></div>
+<pre>import torch, torch.nn as nn
+from torch.utils.data import DataLoader
+
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+
+model = nn.Sequential(nn.Linear(20, 64), nn.ReLU(), nn.Dropout(0.2), nn.Linear(64, 2)).to(device)
+opt   = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-2)
+sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=20)
+loss_fn = nn.CrossEntropyLoss()
+
+best = float("inf")
+for epoch in range(20):
+    model.train()
+    for x, y in train_loader:                 # DataLoader(train_ds, batch_size=64, shuffle=True)
+        x, y = x.to(device), y.to(device)
+        opt.zero_grad()
+        loss = loss_fn(model(x), y)
+        loss.backward()
+        nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        opt.step()
+    sched.step()
+
+    model.eval()
+    with torch.no_grad():
+        val = sum(loss_fn(model(x.to(device)), y.to(device)).item() for x, y in val_loader) / len(val_loader)
+    if val &lt; best:                            # early-stopping style checkpointing
+        best = val
+        torch.save(model.state_dict(), "best.pt")
+    print(f"epoch {epoch} val_loss {val:.4f}")</pre></div>
+
+        <h4 class="kb-sub">Which Architecture for Which Data?</h4>
+        <div class="kb-table-wrap">
+          <table class="kb-table">
+            <thead><tr><th>Data</th><th>Architecture</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Tabular</td><td>Gradient boosting first, MLP second</td><td>Trees usually win on small tabular data.</td></tr>
+              <tr><td>Images</td><td>CNN (ResNet, EfficientNet) / ViT</td><td>Fine-tune pretrained models.</td></tr>
+              <tr><td>Text</td><td>Transformer (BERT, GPT)</td><td>RNN/LSTM now mostly legacy.</td></tr>
+              <tr><td>Time series</td><td>LSTM, TCN, Transformer</td><td>Always benchmark against a simple baseline.</td></tr>
+              <tr><td>Generation</td><td>Diffusion, VAE, GAN, autoregressive</td><td>See next chapter.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CHAPTER 03 — GENERATIVE AI
+  ══════════════════════════════════════════ -->
+  <section class="chapter" id="genai" data-chapter="3">
+    <div class="container">
+      <div class="chapter-header ch-genai">
+        <div class="ch-badge">Chapter 03</div>
+        <h2>Generative AI</h2>
+        <p class="ch-desc">
+          Generative models learn the underlying probability distribution of data, allowing them to synthesize entirely new — yet realistic — content: images, audio, video, and code.
+        </p>
+      </div>
+
+      <!-- GENAI SPECTRUM -->
+      <div class="genai-timeline">
+        <div class="gt-item">
+          <div class="gt-year">2014</div>
+          <div class="gt-content">
+            <strong>GANs</strong> — Goodfellow introduces Generative Adversarial Networks. Generator fools Discriminator in minimax game.
+          </div>
+        </div>
+        <div class="gt-item">
+          <div class="gt-year">2016</div>
+          <div class="gt-content">
+            <strong>VAEs</strong> — Variational Autoencoders add probabilistic latent space with KL-divergence regularization.
+          </div>
+        </div>
+        <div class="gt-item">
+          <div class="gt-year">2020</div>
+          <div class="gt-content">
+            <strong>GPT-3</strong> — 175B parameter autoregressive language model. In-context learning emerges at scale.
+          </div>
+        </div>
+        <div class="gt-item">
+          <div class="gt-year">2022</div>
+          <div class="gt-content">
+            <strong>Diffusion Models</strong> — DALL·E 2, Stable Diffusion reshape image generation. Denoising score matching beats GANs in quality.
+          </div>
+        </div>
+        <div class="gt-item">
+          <div class="gt-year">2023</div>
+          <div class="gt-content">
+            <strong>Multimodal GenAI</strong> — GPT-4V, Gemini Ultra. Text + Image + Audio + Video in one model.
+          </div>
+        </div>
+        <div class="gt-item">
+          <div class="gt-year">2025+</div>
+          <div class="gt-content">
+            <strong>Video &amp; 3D World Models</strong> — Sora, Veo 3, WoVo generate coherent long-form video and 3D environments.
+          </div>
+        </div>
+      </div>
+
+      <div class="three-col-grid">
+        <!-- GAN -->
+        <div class="model-card mc-gan">
+          <div class="mc-top">
+            <div class="mc-badge">GAN</div>
+            <h3>Generative Adversarial Networks</h3>
+          </div>
+          <p>Two networks compete: a Generator G creates fake samples; a Discriminator D distinguishes real from fake. Training converges when D can no longer distinguish — Nash equilibrium.</p>
+          <div class="mc-formula">
+            min<sub>G</sub> max<sub>D</sub> V(D,G) = 𝔼[log D(x)] + 𝔼[log(1−D(G(z)))]
+          </div>
+          <div class="mc-variants">
+            <span>StyleGAN3</span>
+            <span>CycleGAN</span>
+            <span>Pix2Pix</span>
+            <span>BigGAN</span>
+          </div>
+          <div class="mc-challenge">⚠️ Challenges: Mode collapse, training instability, vanishing gradients</div>
+        </div>
+
+        <!-- Diffusion -->
+        <div class="model-card mc-diffusion">
+          <div class="mc-top">
+            <div class="mc-badge mc-badge-purple">Diffusion</div>
+            <h3>Denoising Diffusion Probabilistic Models</h3>
+          </div>
+          <p>Forward process gradually adds Gaussian noise over T steps. Reverse process learns to denoise — parameterized as a U-Net. Conditioning on text embeddings (CLIP) enables text-to-image generation.</p>
+          <div class="mc-formula">
+            L<sub>simple</sub> = 𝔼<sub>t,x₀,ε</sub>[‖ε − ε<sub>θ</sub>(√ᾱₜx₀ + √(1−ᾱₜ)ε, t)‖²]
+          </div>
+          <div class="mc-variants">
+            <span>Stable Diffusion</span>
+            <span>DALL·E 3</span>
+            <span>Imagen</span>
+            <span>Flux</span>
+          </div>
+          <div class="mc-challenge">✅ Strengths: High diversity, photorealistic quality, controllable generation</div>
+        </div>
+
+        <!-- Flow Matching -->
+        <div class="model-card mc-flow">
+          <div class="mc-top">
+            <div class="mc-badge mc-badge-cyan">Flow / AR</div>
+            <h3>Flow Matching &amp; Autoregressive GenAI</h3>
+          </div>
+          <p>Flow Matching learns straight-line probability paths from noise to data — faster sampling than diffusion. Autoregressive models (GPT) predict tokens sequentially, with each token conditioned on all prior context.</p>
+          <div class="mc-formula">
+            p(x) = Π<sub>t</sub> p(xₜ | x&lt;ₜ)   (Autoregressive Chain Rule)
+          </div>
+          <div class="mc-variants">
+            <span>Flux.1</span>
+            <span>GPT-4o</span>
+            <span>Gemini</span>
+            <span>Sora</span>
+          </div>
+          <div class="mc-challenge">🚀 Frontier: Real-time video generation, native multimodal output</div>
+        </div>
+      </div>
+
+      <!-- Modalities Grid -->
+      <h3 class="sub-heading">What Generative AI Can Create</h3>
+      <div class="modality-grid">
+        <div class="mod-card mod-text">
+          <div class="mod-icon">📝</div>
+          <h4>Text Generation</h4>
+          <p>Articles, code, emails, books, legal documents, creative fiction.</p>
+        </div>
+        <div class="mod-card mod-image">
+          <div class="mod-icon">🖼️</div>
+          <h4>Image Synthesis</h4>
+          <p>Photorealistic images, illustrations, product mockups, concept art.</p>
+        </div>
+        <div class="mod-card mod-audio">
+          <div class="mod-icon">🎵</div>
+          <h4>Audio &amp; Music</h4>
+          <p>Voice cloning, music composition, sound effects, podcast narration.</p>
+        </div>
+        <div class="mod-card mod-video">
+          <div class="mod-icon">🎬</div>
+          <h4>Video Generation</h4>
+          <p>Short clips, scene transitions, avatar videos, synthetic training data.</p>
+        </div>
+        <div class="mod-card mod-3d">
+          <div class="mod-icon">🧊</div>
+          <h4>3D &amp; World Models</h4>
+          <p>3D meshes, environment generation, game worlds, digital twins.</p>
+        </div>
+        <div class="mod-card mod-code">
+          <div class="mod-icon">💻</div>
+          <h4>Code Generation</h4>
+          <p>Full-stack apps, API integrations, test suites, documentation.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CHAPTER 04 — LLMs
+  ══════════════════════════════════════════ -->
+  <section class="chapter" id="llm" data-chapter="4">
+    <div class="container">
+      <div class="chapter-header ch-llm">
+        <div class="ch-badge">Chapter 04</div>
+        <h2>Large Language Models (LLMs)</h2>
+        <p class="ch-desc">
+          LLMs are transformer-based models trained at massive scale on internet-scale text corpora. They exhibit emergent capabilities: reasoning, coding, summarization, and instruction-following — without task-specific training.
+        </p>
+      </div>
+
+      <!-- SCALE COMPARISON -->
+      <div class="scale-cards">
+        <div class="scale-item">
+          <div class="scale-bar" style="height:20%"></div>
+          <div class="scale-num">117M</div>
+          <div class="scale-name">GPT-1</div>
+          <div class="scale-year">2018</div>
+        </div>
+        <div class="scale-item">
+          <div class="scale-bar" style="height:32%"></div>
+          <div class="scale-num">1.5B</div>
+          <div class="scale-name">GPT-2</div>
+          <div class="scale-year">2019</div>
+        </div>
+        <div class="scale-item">
+          <div class="scale-bar" style="height:52%"></div>
+          <div class="scale-num">175B</div>
+          <div class="scale-name">GPT-3</div>
+          <div class="scale-year">2020</div>
+        </div>
+        <div class="scale-item">
+          <div class="scale-bar" style="height:68%"></div>
+          <div class="scale-num">540B</div>
+          <div class="scale-name">PaLM</div>
+          <div class="scale-year">2022</div>
+        </div>
+        <div class="scale-item scale-accent">
+          <div class="scale-bar scale-bar-accent" style="height:88%"></div>
+          <div class="scale-num">~1.8T*</div>
+          <div class="scale-name">GPT-4 (MoE)</div>
+          <div class="scale-year">2023</div>
+        </div>
+        <div class="scale-item scale-accent">
+          <div class="scale-bar scale-bar-accent2" style="height:100%"></div>
+          <div class="scale-num">Frontier</div>
+          <div class="scale-name">Gemini Ultra</div>
+          <div class="scale-year">2025</div>
+        </div>
+      </div>
+      <p class="scale-caption">* Estimated / rumored. Exact parameter counts for frontier models are undisclosed.</p>
+
+      <!-- HOW LLMs WORK -->
+      <div class="split-layout">
+        <div class="split-text">
+          <h3>How LLMs Learn &amp; Generate</h3>
+          <p>LLMs are trained via <strong>next-token prediction</strong> (causal language modeling). Given a sequence of tokens, the model learns to predict the most probable next token — billions of times, across hundreds of billions of documents.</p>
+          <p>At inference, the model autoregressively samples one token at a time. Temperature and top-p sampling parameters control diversity vs. accuracy of the output.</p>
+
+          <div class="llm-pipeline">
+            <div class="pip-step">
+              <div class="pip-icon">📄</div>
+              <div class="pip-label">Pre-Training</div>
+              <div class="pip-desc">Self-supervised on 10T+ token corpus. Learn world knowledge, language structure, reasoning.</div>
+            </div>
+            <div class="pip-arrow">↓</div>
+            <div class="pip-step">
+              <div class="pip-icon">🎯</div>
+              <div class="pip-label">Instruction Fine-Tuning (SFT)</div>
+              <div class="pip-desc">Train on curated instruction-response pairs to follow user directives.</div>
+            </div>
+            <div class="pip-arrow">↓</div>
+            <div class="pip-step">
+              <div class="pip-icon">👍</div>
+              <div class="pip-label">RLHF / DPO Alignment</div>
+              <div class="pip-desc">Human raters rank outputs. PPO/DPO optimizes for helpfulness, honesty, and harmlessness.</div>
+            </div>
+            <div class="pip-arrow">↓</div>
+            <div class="pip-step">
+              <div class="pip-icon">🚀</div>
+              <div class="pip-label">Deployment</div>
+              <div class="pip-desc">Quantized to INT4/INT8, served with speculative decoding and KV cache optimization.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-visual">
+          <div class="token-visualizer" id="tokenViz">
+            <div class="tv-header">
+              <span>Token-by-Token Generation</span>
+              <button class="tv-play-btn" id="tvPlayBtn">▶ Generate</button>
+            </div>
+            <div class="tv-prompt">
+              <span class="tv-label">PROMPT</span>
+              <span class="tv-text">"The transformer architecture revolutionized AI by"</span>
+            </div>
+            <div class="tv-output-area">
+              <span class="tv-label">OUTPUT</span>
+              <div class="tv-tokens" id="tvTokens"></div>
+            </div>
+            <div class="tv-meta">
+              <span>Temperature: 0.7</span>
+              <span>Top-p: 0.95</span>
+              <span id="tv-token-count">0 tokens</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY LLM CAPABILITIES -->
+      <h3 class="sub-heading">Core LLM Techniques &amp; Capabilities</h3>
+      <div class="technique-grid">
+        <div class="tech-card" style="border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.04);">
+          <div class="tech-header">
+            <span class="tech-icon">🔗</span>
+            <h4>Retrieval-Augmented Generation (RAG)</h4>
+          </div>
+          <p>Combines LLM generation with real-time retrieval from external knowledge bases. Solves the knowledge cutoff, prevents hallucinations, and allows private enterprise document access with strict citations.</p>
+          <div class="tech-flow">
+            Query → Query Rewrite → Hybrid Search → Top-50 Chunks → Cross-Encoder Rerank → Top-5 Chunks → LLM Synthesis
+          </div>
+          <div style="margin-top:14px;">
+            <a href="rag.html" style="font-size:0.85rem;font-weight:700;color:#38bdf8;text-decoration:none;">Open Dedicated RAG Architecture Guide &rarr;</a>
+          </div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-header">
+            <span class="tech-icon">🧩</span>
+            <h4>Few-Shot &amp; Chain-of-Thought Prompting</h4>
+          </div>
+          <p>In-context learning allows LLMs to adapt behavior through examples in the prompt without weight updates. Chain-of-Thought (CoT) prompting instructs the model to reason step-by-step, dramatically improving math and logic performance.</p>
+          <div class="tech-flow">
+            System Prompt → Few-Shot Examples → "Think step by step" → Multi-step Reasoning → Final Answer
+          </div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-header">
+            <span class="tech-icon">⚡</span>
+            <h4>Mixture of Experts (MoE)</h4>
+          </div>
+          <p>Sparse model architecture where only a subset of "expert" sub-networks are activated per token. Allows scaling to trillions of parameters with the compute cost of a much smaller dense model. Used in GPT-4 and Mixtral.</p>
+          <div class="tech-flow">
+            Token → Router → Top-2 Expert FFNs → Weighted Combination → Next Layer
+          </div>
+        </div>
+
+        <div class="tech-card">
+          <div class="tech-header">
+            <span class="tech-icon">🔧</span>
+            <h4>Parameter-Efficient Fine-Tuning (LoRA)</h4>
+          </div>
+          <p>LoRA decomposes weight updates into low-rank matrices: ΔW = BA. Only 0.1–1% of original parameters are trained, with minimal quality loss. Enables fine-tuning 70B models on consumer hardware in hours.</p>
+          <div class="tech-flow">
+            Frozen W + LoRA ΔW(BA) → Domain-Adapted Model → Merge or PEFT Serving
+          </div>
+        </div>
+      </div>
+
+      <!-- LLM UNDER THE HOOD DEEP DIVE -->
+      <div style="margin-top: 56px; padding: 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;">
+        <h3 style="font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:12px;">How LLMs Work Under the Hood</h3>
+        <p style="color:var(--text-2);line-height:1.6;font-size:0.95rem;margin-bottom:24px;">
+          Behind the conversational magic of ChatGPT and Claude is an autoregressive transformer decoder performing billions of matrix multiplications. Here is the exact mathematical and engineering lifecycle of every prompt:
+        </p>
+
+        <div class="anatomy-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+          <div class="anatomy-item" style="border-color:rgba(99,102,241,0.25);">
+            <div class="an-icon">🔤</div>
+            <h4>1. Tokenization &amp; Positional Encodings</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);line-height:1.5;">
+              Text is chopped into sub-word tokens via Byte-Pair Encoding (BPE). Each token maps to a unique integer ID (e.g. "transformer" &rarr; ID 42189). Because transformers process all tokens simultaneously, sinusoidal or rotary positional embeddings (RoPE) are added so the network knows token order.
+            </p>
+          </div>
+
+          <div class="anatomy-item" style="border-color:rgba(168,85,247,0.25);">
+            <div class="an-icon">⚡</div>
+            <h4>2. Multi-Head Self-Attention (Q, K, V)</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);line-height:1.5;">
+              Each token projects into Query (Q), Key (K), and Value (V) matrices. The dot-product score determines how much attention token A pays to token B:
+              <code style="display:block;margin-top:8px;padding:6px;background:#06080e;border-radius:6px;color:#c084fc;font-size:0.78rem;">Attention(Q,K,V) = softmax(Q·Kᵀ / √d_k) · V</code>
+            </p>
+          </div>
+
+          <div class="anatomy-item" style="border-color:rgba(56,189,248,0.25);">
+            <div class="an-icon">🎛️</div>
+            <h4>3. Inference Sampling Dynamics</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);line-height:1.5;">
+              The final layer outputs logits over a 100k+ token vocabulary. <strong>Temperature</strong> scales logit entropy (0.0 = deterministic argmax; 1.0 = creative spread). <strong>Top-p (Nucleus)</strong> restricts sampling to the smallest pool of tokens whose cumulative probability exceeds p (e.g. 95%).
+            </p>
+          </div>
+
+          <div class="anatomy-item" style="border-color:rgba(74,222,128,0.25);">
+            <div class="an-icon">💾</div>
+            <h4>4. KV-Caching Acceleration</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);line-height:1.5;">
+              During autoregressive text generation, recomputing attention over all prior tokens for every new word would be O(N²). The <strong>KV-Cache</strong> stores previous Key and Value vectors in GPU HBM memory, slashing token generation latency by 80%.
+            </p>
+          </div>
+        </div>
+
+        <!-- SPOTLIGHT 1: Embeddings & Pinecone Banner -->
+        <div class="deepdive-banner" style="margin-top:28px;background:linear-gradient(135deg, rgba(168,85,247,0.12), rgba(99,102,241,0.06));border-color:rgba(168,85,247,0.35);">
+          <div class="deepdive-banner__content">
+            <span style="font-size:0.75rem;font-weight:700;color:#c084fc;text-transform:uppercase;letter-spacing:0.05em;">Specialized Deep Dive · 15 Min</span>
+            <h4>Vector Embeddings &amp; Pinecone Vector Database</h4>
+            <p>Explore high-dimensional vector spaces, cosine similarity math, HNSW graph indexing, metadata filtering, and complete Python Pinecone implementations.</p>
+          </div>
+          <a href="embeddings.html" class="btn-glow" style="background:linear-gradient(135deg, #a855f7, #6366f1);">Read Embeddings Guide &rarr;</a>
+        </div>
+
+        <!-- SPOTLIGHT 2: RAG Architecture Banner -->
+        <div class="deepdive-banner" style="background:linear-gradient(135deg, rgba(56,189,248,0.12), rgba(34,197,94,0.06));border-color:rgba(56,189,248,0.35);">
+          <div class="deepdive-banner__content">
+            <span style="font-size:0.75rem;font-weight:700;color:#38bdf8;text-transform:uppercase;letter-spacing:0.05em;">Specialized Deep Dive · 18 Min</span>
+            <h4>Retrieval-Augmented Generation (RAG) Architecture</h4>
+            <p>Detailed architecture diagrams, chunking strategies, hybrid search, cross-encoder rerankers, evaluation metrics (RAG Triad), and working production code.</p>
+          </div>
+          <a href="rag.html" class="btn-glow" style="background:linear-gradient(135deg, #38bdf8, #0284c7);">Read RAG Guide &rarr;</a>
+        </div>
+      </div>
+
+      <!-- ═══ GPT & LLM FAMILY ═══ -->
+      <div class="kb kb-llm" id="gpt">
+        <div class="kb-head">
+          <span class="kb-kicker">GPT · LLM Landscape</span>
+          <h3>GPT &amp; the Model Families</h3>
+          <p>GPT (Generative Pre-trained Transformer) is a decoder-only transformer trained to predict the next token. Scale + instruction tuning + RLHF turned it into ChatGPT. Today several vendors and open-weight families compete.</p>
+        </div>
+
+        <ol class="kb-steps" style="padding:0;">
+          <li><strong>Pre-training</strong> — next-token prediction over trillions of tokens of web, books and code. Produces a base model that completes text but does not follow instructions.</li>
+          <li><strong>Supervised Fine-Tuning (SFT)</strong> — train on curated (instruction, ideal answer) pairs so the model learns the assistant format.</li>
+          <li><strong>Preference tuning (RLHF / DPO)</strong> — humans rank answers; a reward model or direct preference loss aligns outputs to be helpful, honest and harmless.</li>
+          <li><strong>Inference-time techniques</strong> — system prompts, tool calling, RAG, structured output and reasoning ("thinking") modes extend what the frozen weights can do.</li>
+        </ol>
+
+        <h4 class="kb-sub">Popular LLM Families</h4>
+        <div class="kb-table-wrap">
+          <table class="kb-table">
+            <thead><tr><th>Family</th><th>Vendor</th><th>Access</th><th>Known For</th></tr></thead>
+            <tbody>
+              <tr><td>GPT (4o, 4.1, o-series)</td><td>OpenAI</td><td>API</td><td>General purpose, tool use, reasoning models</td></tr>
+              <tr><td>Claude</td><td>Anthropic</td><td>API</td><td>Long context, coding, safety, agentic work</td></tr>
+              <tr><td>Gemini</td><td>Google</td><td>API</td><td>Native multimodal, very long context</td></tr>
+              <tr><td>Llama</td><td>Meta</td><td>Open weights</td><td>Self-hosting, fine-tuning ecosystem</td></tr>
+              <tr><td>Mistral / Mixtral</td><td>Mistral AI</td><td>Open + API</td><td>Efficient models, Mixture-of-Experts</td></tr>
+              <tr><td>Qwen / DeepSeek</td><td>Alibaba / DeepSeek</td><td>Open weights</td><td>Strong coding and math at low cost</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="kb-sub">Key Concepts You Must Know</h4>
+        <div class="kb-grid">
+          <div class="kb-card"><h5>🪙 Tokens &amp; Context Window</h5><p>Models read tokens (~¾ of a word). The context window is the max tokens of prompt + output. You pay per token, so shorter prompts are cheaper and faster.</p></div>
+          <div class="kb-card"><h5>🌡️ Temperature / Top-p</h5><p>Low temperature (0–0.3) for extraction, code and facts. Higher (0.7–1.0) for brainstorming and creative text.</p></div>
+          <div class="kb-card"><h5>🛠️ Function Calling</h5><p>The model returns a JSON request to call your function; your code executes it and sends the result back. This is the basis of agents.</p></div>
+          <div class="kb-card"><h5>⚠️ Hallucination</h5><p>LLMs generate plausible text, not verified facts. Mitigate with RAG, citations, low temperature and output validation.</p></div>
+          <div class="kb-card"><h5>🎯 Fine-tune vs RAG vs Prompt</h5><p>Start with prompting, add RAG for fresh/private knowledge, fine-tune only for style, format or domain behaviour.</p></div>
+          <div class="kb-card"><h5>🧠 Reasoning Models</h5><p>Models like o-series and extended-thinking modes spend extra tokens on hidden chain-of-thought for math, logic and planning.</p></div>
+        </div>
+      </div>
+
+      <!-- ═══ GEN AI WITH PYTHON ═══ -->
+      <div class="kb kb-llm" id="genai-python">
+        <div class="kb-head">
+          <span class="kb-kicker">Hands-On · Python</span>
+          <h3>How to Use Generative AI with Python</h3>
+          <p>Three ways to use GenAI from Python: call a hosted API, run an open model locally via Hugging Face or Ollama, or orchestrate with a framework. Start with the API.</p>
+        </div>
+
+        <h4 class="kb-sub">1 · Setup</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>terminal</b><span>bash</span></div>
+<pre>python -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install openai anthropic google-genai transformers torch python-dotenv
+
+# store keys in .env (never commit it!)
+# OPENAI_API_KEY=sk-...
+# ANTHROPIC_API_KEY=sk-ant-...</pre></div>
+
+        <h4 class="kb-sub">2 · Chat completion (OpenAI)</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>chat.py</b><span>python</span></div>
+<pre>from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+client = OpenAI()          # reads OPENAI_API_KEY
+
+resp = client.chat.completions.create(
+    model="gpt-4o-mini",
+    temperature=0.2,
+    messages=[
+        {"role": "system", "content": "You are a concise Python tutor."},
+        {"role": "user",   "content": "Explain list comprehensions."},
+    ],
+)
+print(resp.choices[0].message.content)
+print(resp.usage)          # token accounting</pre></div>
+
+        <h4 class="kb-sub">3 · Streaming &amp; Claude</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>stream.py</b><span>python</span></div>
+<pre>import anthropic
+
+client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY
+
+with client.messages.stream(
+    model="claude-sonnet-4-20250514",
+    max_tokens=500,
+    messages=[{"role": "user", "content": "Write a haiku about gradients."}],
+) as stream:
+    for text in stream.text_stream:
+        print(text, end="", flush=True)</pre></div>
+
+        <h4 class="kb-sub">4 · Structured output &amp; function calling</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>tools.py</b><span>python</span></div>
+<pre>import json
+from openai import OpenAI
+client = OpenAI()
+
+def get_weather(city: str) -&gt; str:
+    return json.dumps({"city": city, "temp_c": 24})
+
+tools = [{
+    "type": "function",
+    "function": {
+        "name": "get_weather",
+        "description": "Current weather for a city",
+        "parameters": {
+            "type": "object",
+            "properties": {"city": {"type": "string"}},
+            "required": ["city"],
+        },
+    },
+}]
+
+messages = [{"role": "user", "content": "Weather in Delhi?"}]
+first = client.chat.completions.create(model="gpt-4o-mini", messages=messages, tools=tools)
+call = first.choices[0].message.tool_calls[0]
+
+messages.append(first.choices[0].message)
+messages.append({"role": "tool", "tool_call_id": call.id,
+                 "content": get_weather(**json.loads(call.function.arguments))})
+
+final = client.chat.completions.create(model="gpt-4o-mini", messages=messages)
+print(final.choices[0].message.content)</pre></div>
+
+        <h4 class="kb-sub">5 · Run an open model locally (Hugging Face)</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>local.py</b><span>python</span></div>
+<pre>from transformers import pipeline
+
+gen = pipeline("text-generation",
+               model="Qwen/Qwen2.5-0.5B-Instruct",
+               device_map="auto")
+
+out = gen("Explain overfitting in one sentence.", max_new_tokens=60)
+print(out[0]["generated_text"])</pre></div>
+
+        <h4 class="kb-sub">6 · Embeddings (for search &amp; RAG)</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>embed.py</b><span>python</span></div>
+<pre>import numpy as np
+from openai import OpenAI
+client = OpenAI()
+
+docs = ["Cats purr.", "Stocks fell today.", "Dogs bark."]
+vecs = np.array([d.embedding for d in client.embeddings.create(
+    model="text-embedding-3-small", input=docs).data])
+q = np.array(client.embeddings.create(
+    model="text-embedding-3-small", input=["pet sounds"]).data[0].embedding)
+
+scores = vecs @ q / (np.linalg.norm(vecs, axis=1) * np.linalg.norm(q))
+print(docs[int(scores.argmax())])</pre></div>
+
+        <h4 class="kb-sub">GenAI Best Practices</h4>
+        <div class="kb-grid">
+          <div class="kb-card good"><h5>✍️ Prompting</h5><ul><li>Give a role, task, format and examples (few-shot).</li><li>Ask for JSON and validate with Pydantic.</li><li>Put instructions first, data in delimiters.</li><li>Iterate with an eval set, not vibes.</li></ul></div>
+          <div class="kb-card good"><h5>🔐 Security</h5><ul><li>Keys in env vars / secret manager.</li><li>Treat retrieved text and user input as untrusted (prompt injection).</li><li>Never let the model run unsandboxed code or SQL.</li></ul></div>
+          <div class="kb-card good"><h5>💰 Cost &amp; Latency</h5><ul><li>Use small models for easy tasks, route hard ones up.</li><li>Cache repeated prompts; trim context.</li><li>Stream responses; set <code>max_tokens</code>.</li></ul></div>
+          <div class="kb-card good"><h5>🧪 Reliability</h5><ul><li>Retry with exponential backoff on 429/5xx.</li><li>Set timeouts; log prompts, tokens, latency.</li><li>Evaluate with LLM-as-judge plus human spot-checks.</li></ul></div>
+          <div class="kb-card bad"><h5>🚫 Avoid</h5><ul><li>Trusting outputs without verification.</li><li>Sending PII to third-party APIs unmasked.</li><li>Fine-tuning before trying prompt + RAG.</li></ul></div>
+        </div>
+
+        <h4 class="kb-sub">Frameworks Worth Knowing</h4>
+        <div class="kb-table-wrap">
+          <table class="kb-table">
+            <thead><tr><th>Tool</th><th>Use It For</th></tr></thead>
+            <tbody>
+              <tr><td>LangChain / LangGraph</td><td>Chains, RAG pipelines, stateful agent graphs</td></tr>
+              <tr><td>LlamaIndex</td><td>Data ingestion, indexing and retrieval over documents</td></tr>
+              <tr><td>Hugging Face Transformers</td><td>Download, run and fine-tune open models (LoRA / PEFT)</td></tr>
+              <tr><td>Ollama / vLLM</td><td>Local serving (Ollama) and high-throughput serving (vLLM)</td></tr>
+              <tr><td>Pydantic / Instructor</td><td>Typed, validated structured outputs</td></tr>
+              <tr><td>Gradio / Streamlit</td><td>Quick UIs for demos</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ LANGCHAIN ═══ -->
+      <div class="kb kb-llm" id="langchain">
+        <div class="kb-head">
+          <span class="kb-kicker">Framework · LangChain</span>
+          <h3>LangChain in Simple Terms</h3>
+          <p>LangChain is a Python library that connects LLMs to prompts, tools, data and memory. Instead of hand-writing API calls, you compose small reusable pieces into a pipeline.</p>
+        </div>
+
+        <h4 class="kb-sub">Core Building Blocks</h4>
+        <div class="kb-grid">
+          <div class="kb-card"><h5>🤖 Chat Models</h5><p>A uniform wrapper over OpenAI, Anthropic, Gemini, Ollama and more. Swap providers by changing one line.</p></div>
+          <div class="kb-card"><h5>📝 Prompt Templates</h5><p>Reusable prompts with <code>{variables}</code> filled in at run time.</p></div>
+          <div class="kb-card"><h5>🧾 Output Parsers</h5><p>Turn model text into strings, JSON or typed Pydantic objects.</p></div>
+          <div class="kb-card"><h5>🔗 Runnables &amp; LCEL</h5><p>Chain steps with the <code>|</code> pipe: <code>prompt | model | parser</code>. Supports <code>invoke</code>, <code>stream</code> and <code>batch</code>.</p></div>
+          <div class="kb-card"><h5>📚 Retrievers &amp; Vector Stores</h5><p>Load documents, split, embed and search them for RAG.</p></div>
+          <div class="kb-card"><h5>🛠️ Tools &amp; Agents</h5><p>Python functions the model can call. LangGraph runs the loop for you.</p></div>
+        </div>
+
+        <h4 class="kb-sub">1 · Install</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>terminal</b><span>bash</span></div>
+<pre>pip install langchain langchain-openai langchain-community langgraph faiss-cpu
+export OPENAI_API_KEY=sk-...</pre></div>
+
+        <h4 class="kb-sub">2 · Your first chain</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>chain.py</b><span>python · langchain</span></div>
+<pre>from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You explain topics simply."),
+    ("user", "Explain {topic} in 2 sentences."),
+])
+
+chain = prompt | llm | StrOutputParser()      # LCEL pipe
+
+print(chain.invoke({"topic": "gradient descent"}))
+
+for chunk in chain.stream({"topic": "embeddings"}):   # streaming
+    print(chunk, end="", flush=True)</pre></div>
+
+        <h4 class="kb-sub">3 · Structured output</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>structured.py</b><span>python · langchain</span></div>
+<pre>from pydantic import BaseModel
+from langchain_openai import ChatOpenAI
+
+class Person(BaseModel):
+    name: str
+    age: int
+
+llm = ChatOpenAI(model="gpt-4o-mini").with_structured_output(Person)
+print(llm.invoke("Asha is 29 years old."))     # Person(name='Asha', age=29)</pre></div>
+
+        <h4 class="kb-sub">4 · Simple RAG</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>rag.py</b><span>python · langchain</span></div>
+<pre>from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+
+texts = ["LangChain composes LLM apps.", "FAISS is a vector search library."]
+retriever = FAISS.from_texts(texts, OpenAIEmbeddings()).as_retriever(search_kwargs={"k": 2})
+
+prompt = ChatPromptTemplate.from_template(
+    "Answer using only this context:\n{context}\n\nQuestion: {question}")
+
+rag = ({"context": retriever, "question": RunnablePassthrough()}
+       | prompt | ChatOpenAI(model="gpt-4o-mini") | StrOutputParser())
+
+print(rag.invoke("What is FAISS?"))</pre></div>
+
+        <h4 class="kb-sub">5 · A tool-using agent</h4>
+        <div class="kb-code"><div class="kb-code-bar"><b>agent.py</b><span>python · langgraph</span></div>
+<pre>from langchain_openai import ChatOpenAI
+from langchain_core.tools import tool
+from langgraph.prebuilt import create_react_agent
+
+@tool
+def multiply(a: int, b: int) -&gt; int:
+    """Multiply two integers."""
+    return a * b
+
+agent = create_react_agent(ChatOpenAI(model="gpt-4o-mini"), [multiply])
+result = agent.invoke({"messages": [("user", "What is 12 times 34?")]})
+print(result["messages"][-1].content)</pre></div>
+
+        <h4 class="kb-sub">When to Use It</h4>
+        <div class="kb-grid">
+          <div class="kb-card good"><h5>✅ Good fit</h5><ul><li>RAG over your documents.</li><li>Multi-step chains and agents.</li><li>Switching between model providers.</li></ul></div>
+          <div class="kb-card bad"><h5>⚠️ Maybe skip</h5><ul><li>A single simple API call — use the provider SDK.</li><li>When you need full control of every request.</li></ul></div>
+        </div>
+        <div class="kb-callout"><strong>Tip:</strong> LangChain's API changes often. Check the <a href="https://python.langchain.com" target="_blank" rel="noopener" style="color:#FBBF24;">official docs</a> for current imports, and use <strong>LangSmith</strong> to trace and debug chains.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CHAPTER 05 — AGENTIC AI
+  ══════════════════════════════════════════ -->
+  <section class="chapter" id="agentic" data-chapter="5">
+    <div class="container">
+      <div class="chapter-header ch-agentic">
+        <div class="ch-badge">Chapter 05</div>
+        <h2>Agentic AI</h2>
+        <p class="ch-desc">
+          Agentic AI moves beyond single-turn question-answering toward systems that autonomously reason, plan multi-step strategies, use tools, maintain memory, and execute complex tasks in the real world.
+        </p>
+      </div>
+
+      <!-- AGENT ANATOMY -->
+      <div class="agent-anatomy">
+        <h3>Anatomy of an AI Agent</h3>
+        <div class="anatomy-grid">
+          <div class="anatomy-item an-perception">
+            <div class="an-icon">👁️</div>
+            <h4>Perception</h4>
+            <p>Receives text, images, tool outputs, API responses, and environmental state as structured inputs to the agent loop.</p>
+          </div>
+          <div class="anatomy-item an-memory">
+            <div class="an-icon">🧠</div>
+            <h4>Memory</h4>
+            <div class="memory-types">
+              <span>In-Context (Scratchpad)</span>
+              <span>External Vector Store</span>
+              <span>Episodic / Procedural</span>
+            </div>
+          </div>
+          <div class="anatomy-item an-reasoning">
+            <div class="an-icon">💡</div>
+            <h4>Reasoning Engine (LLM Core)</h4>
+            <p>The LLM plans which tool to call next, reasons about intermediate results, and decides when the goal is achieved.</p>
+          </div>
+          <div class="anatomy-item an-action">
+            <div class="an-icon">⚡</div>
+            <h4>Action / Tool Use</h4>
+            <div class="tool-chips">
+              <span>🔍 Web Search</span>
+              <span>💻 Code Exec</span>
+              <span>📂 File I/O</span>
+              <span>🗄️ Database</span>
+              <span>📧 Email / API</span>
+              <span>🖥️ Browser</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REACT LOOP -->
+      <div class="split-layout">
+        <div class="split-text">
+          <h3>The ReAct Framework</h3>
+          <p><strong>ReAct</strong> (Reasoning + Acting) interleaves chain-of-thought <em>Thought</em> steps with grounded <em>Action</em> steps, using <em>Observations</em> from tool results to guide the next thought. This cycle continues until the agent produces a final answer.</p>
+
+          <div class="react-steps">
+            <div class="rs-item">
+              <div class="rs-tag thought">Thought</div>
+              <span>I need to find current GPU pricing. Let me search the web.</span>
+            </div>
+            <div class="rs-item">
+              <div class="rs-tag action">Action</div>
+              <span>web_search("NVIDIA H100 GPU price 2026")</span>
+            </div>
+            <div class="rs-item">
+              <div class="rs-tag observe">Observation</div>
+              <span>NVIDIA H100 SXM5 80GB: $30,000 — $35,000 USD per unit. OEM availability Q1 2026.</span>
+            </div>
+            <div class="rs-item">
+              <div class="rs-tag thought">Thought</div>
+              <span>Good. Now I can calculate the cluster cost for 1024 GPUs.</span>
+            </div>
+            <div class="rs-item">
+              <div class="rs-tag action">Action</div>
+              <span>calculator(32500 * 1024)</span>
+            </div>
+            <div class="rs-item">
+              <div class="rs-tag observe">Observation</div>
+              <span>Result: $33,280,000</span>
+            </div>
+            <div class="rs-item">
+              <div class="rs-tag final">Final Answer</div>
+              <span>A 1024× H100 GPU cluster costs approximately $33.28M at current market rates.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-visual">
+          <div class="agent-loop-diagram" id="agentLoopDiagram">
+            <div class="ald-center">
+              <div class="ald-core">
+                <div class="ald-core-icon">🧠</div>
+                <div class="ald-core-label">LLM Agent</div>
+              </div>
+            </div>
+            <div class="ald-orbit">
+              <div class="ald-node ald-n1">
+                <div class="ald-nicon">📥</div>
+                <div class="ald-nlabel">Perceive</div>
+              </div>
+              <div class="ald-node ald-n2">
+                <div class="ald-nicon">💭</div>
+                <div class="ald-nlabel">Reason</div>
+              </div>
+              <div class="ald-node ald-n3">
+                <div class="ald-nicon">🔧</div>
+                <div class="ald-nlabel">Act</div>
+              </div>
+              <div class="ald-node ald-n4">
+                <div class="ald-nicon">👁️</div>
+                <div class="ald-nlabel">Observe</div>
+              </div>
+            </div>
+          </div>
+          <p class="diagram-caption">Autonomous agent perception-action loop</p>
+        </div>
+      </div>
+
+      <!-- MULTI AGENT SYSTEMS -->
+      <h3 class="sub-heading">Multi-Agent Architectures</h3>
+      <div class="mas-grid">
+        <div class="mas-card">
+          <div class="mas-icon">👑</div>
+          <h4>Orchestrator–Subagent</h4>
+          <p>A planner agent decomposes tasks and delegates to specialist subagents (coder, researcher, critic, executor). Enables parallelism and specialization.</p>
+          <div class="mas-example">CrewAI · AutoGen · LangGraph</div>
+        </div>
+        <div class="mas-card">
+          <div class="mas-icon">🔄</div>
+          <h4>Debate &amp; Critique</h4>
+          <p>Multiple agents propose solutions independently, then critique each other's outputs to reach a better synthesized conclusion. Reduces hallucinations.</p>
+          <div class="mas-example">Society of Mind · Multi-Agent Debate</div>
+        </div>
+        <div class="mas-card">
+          <div class="mas-icon">🗺️</div>
+          <h4>Plan &amp; Execute</h4>
+          <p>A planner generates a structured task graph; an executor agent follows it step-by-step, reporting results back. Dynamic replanning on failure.</p>
+          <div class="mas-example">BabyAGI · Devin · SWE-Agent</div>
+        </div>
+        <div class="mas-card">
+          <div class="mas-icon">🌐</div>
+          <h4>Swarm Intelligence</h4>
+          <p>Large numbers of lightweight agents operate in parallel over distributed environments. Emergent global behavior arises from local agent interactions.</p>
+          <div class="mas-example">Aether Swarm · OpenAI Swarm</div>
+        </div>
+      </div>
+
+      <!-- AGENTIC STACK -->
+      <div class="agentic-stack-card">
+        <!-- HOW AGENTS WORK IN PRODUCTION -->
+      <div style="margin: 40px 0 50px; padding: 32px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;">
+        <h3 style="font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:12px;">How AI Agents Work in Production</h3>
+        <p style="color:var(--text-2);line-height:1.6;font-size:0.95rem;margin-bottom:24px;">
+          An AI Agent is an LLM enhanced with a <strong>continuous reasoning loop</strong>, long-term memory, and tool invocation capabilities. Rather than generating a single text reply, an agent operates autonomously in an environment to achieve a defined goal:
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:16px;">
+          <div style="background:#090d16;border:1px solid rgba(251,146,60,0.25);border-radius:12px;padding:20px;">
+            <span style="font-size:0.75rem;font-weight:700;color:#fb923c;text-transform:uppercase;">Step 1</span>
+            <h4 style="margin:6px 0 8px;color:#fff;font-size:1.05rem;">Perception &amp; Ingestion</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);margin:0;line-height:1.5;">The agent receives user directives, system status, and environment state. Relevant memories are recalled from a vector database (Pinecone).</p>
+          </div>
+
+          <div style="background:#090d16;border:1px solid rgba(168,85,247,0.25);border-radius:12px;padding:20px;">
+            <span style="font-size:0.75rem;font-weight:700;color:#c084fc;text-transform:uppercase;">Step 2</span>
+            <h4 style="margin:6px 0 8px;color:#fff;font-size:1.05rem;">Planning &amp; ReAct Loop</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);margin:0;line-height:1.5;">The LLM breaks the high-level objective into sub-tasks (Thought). It chooses which tool to invoke and formats structured JSON parameters (Action).</p>
+          </div>
+
+          <div style="background:#090d16;border:1px solid rgba(56,189,248,0.25);border-radius:12px;padding:20px;">
+            <span style="font-size:0.75rem;font-weight:700;color:#38bdf8;text-transform:uppercase;">Step 3</span>
+            <h4 style="margin:6px 0 8px;color:#fff;font-size:1.05rem;">Tool / Function Execution</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);margin:0;line-height:1.5;">The runtime host intercepts the tool call (SQL query, API call, code interpreter), executes it securely, and feeds the result back to the model (Observation).</p>
+          </div>
+
+          <div style="background:#090d16;border:1px solid rgba(74,222,128,0.25);border-radius:12px;padding:20px;">
+            <span style="font-size:0.75rem;font-weight:700;color:#4ade80;text-transform:uppercase;">Step 4</span>
+            <h4 style="margin:6px 0 8px;color:#fff;font-size:1.05rem;">Reflection &amp; Self-Correction</h4>
+            <p style="font-size:0.85rem;color:var(--text-2);margin:0;line-height:1.5;">If a tool returns an error or empty result, the agent reflects, corrects its strategy, and retries with revised arguments until the goal is achieved.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>The Full Agentic AI Stack</h3>
+        <div class="stack-layers">
+          <div class="sl-layer sl-user"><span>👤 User / Environment</span></div>
+          <div class="sl-arrow">↓</div>
+          <div class="sl-layer sl-interface"><span>💬 Chat / API Interface</span></div>
+          <div class="sl-arrow">↓</div>
+          <div class="sl-layer sl-agent"><span>🧠 Agent Reasoning Loop (ReAct / CoT)</span></div>
+          <div class="sl-arrow">↓</div>
+          <div class="sl-layer sl-tools"><span>🔧 Tool Layer: Search · Code · Browser · DB · APIs</span></div>
+          <div class="sl-arrow">↓</div>
+          <div class="sl-layer sl-memory"><span>🗃️ Memory Layer: Vector Store · KV Cache · Episodic DB</span></div>
+          <div class="sl-arrow">↓</div>
+          <div class="sl-layer sl-foundation"><span>🏗️ Foundation Model: LLM / VLM (GPT-4o · Gemini · Claude)</span></div>
+          <div class="sl-arrow">↓</div>
+          <div class="sl-layer sl-infra"><span>⚡ Inference Infrastructure: GPU Clusters · Edge Nodes · KV Caching</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       COMPARISON TABLE
+  ══════════════════════════════════════════ -->
+  <section class="comparison-section">
+    <div class="container">
+      <div class="section-header-center">
+        <span class="section-kicker">Summary</span>
+        <h2>Comparing AI Paradigms</h2>
+      </div>
+      <div class="comparison-table-wrap">
+        <table class="comparison-table" id="comparisonTable">
+          <thead>
+            <tr>
+              <th>Paradigm</th>
+              <th>Primary Goal</th>
+              <th>Training Signal</th>
+              <th>Key Architecture</th>
+              <th>Complexity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ct-pill ct-ml">Machine Learning</span></td>
+              <td>Pattern recognition &amp; prediction</td>
+              <td>Labels / Rewards / Structure</td>
+              <td>Trees, SVMs, Linear Models</td>
+              <td><div class="complexity-bar" style="--pct:30%"></div></td>
+            </tr>
+            <tr>
+              <td><span class="ct-pill ct-dl">Deep Learning</span></td>
+              <td>Hierarchical representation learning</td>
+              <td>Gradient descent on loss</td>
+              <td>CNN, RNN, Transformer</td>
+              <td><div class="complexity-bar" style="--pct:55%"></div></td>
+            </tr>
+            <tr>
+              <td><span class="ct-pill ct-genai">Generative AI</span></td>
+              <td>Synthesis of new realistic content</td>
+              <td>Reconstruction / Adversarial</td>
+              <td>GAN, VAE, Diffusion</td>
+              <td><div class="complexity-bar" style="--pct:70%"></div></td>
+            </tr>
+            <tr>
+              <td><span class="ct-pill ct-llm">LLMs</span></td>
+              <td>Language understanding &amp; generation</td>
+              <td>Next-token prediction + RLHF</td>
+              <td>Decoder-only Transformer</td>
+              <td><div class="complexity-bar" style="--pct:85%"></div></td>
+            </tr>
+            <tr>
+              <td><span class="ct-pill ct-agentic">Agentic AI</span></td>
+              <td>Autonomous goal-directed task completion</td>
+              <td>Reward / Human feedback / Self-critique</td>
+              <td>LLM + Tools + Memory + Planner</td>
+              <td><div class="complexity-bar" style="--pct:100%"></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <div class="brand-link brand">
+          <div class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <span>Aether<span class="brand-dot">.ai</span></span>
+        </div>
+        <p>A structured AI curriculum from fundamentals to frontier systems.</p>
+      </div>
+      <div class="footer-right">
+        <a href="index.html">← Home</a>
+        <a href="#ml">Machine Learning</a>
+        <a href="#dl">Deep Learning</a>
+        <a href="#genai">Generative AI</a>
+        <a href="#llm">LLMs</a>
+        <a href="embeddings.html">Embeddings &amp; Pinecone</a>
+        <a href="rag.html">RAG Architecture</a>
+        <a href="#agentic">Agentic AI</a>
+      </div>
+    </div>
+    <div class="container footer-bottom-bar">
+      <p>© 2026 Aether AI — AI Fundamentals Guide</p>
+      <p>Built for engineers, researchers, and curious minds.</p>
+    </div>
+  </footer>
+
+  <script src="learn.js"></script>
+</body>
+</html>

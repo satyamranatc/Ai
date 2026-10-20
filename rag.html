@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retrieval-Augmented Generation (RAG): Architectures, Pipelines & Advanced Patterns</title>
+  <meta name="description" content="A visual, production-grade guide to RAG: Naive vs Advanced RAG, chunking strategies, hybrid search, cross-encoder rerankers, evaluation metrics, and end-to-end Python implementations.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#05060a">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="guide.css">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body class="guide">
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__left">
+        <button class="menu-btn" id="menu-open" type="button" aria-controls="drawer" aria-expanded="false">
+          <span class="menu-btn__bars" aria-hidden="true"></span>
+          Menu
+        </button>
+        <a class="topbar__brand" href="index.html">Aether AI</a>
+      </div>
+      <nav class="topbar__nav" aria-label="Jump to">
+        <a href="#why-rag">Why RAG?</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#chunking">Chunking</a>
+        <a href="#advanced">Advanced RAG</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#code">Python Code</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Off-canvas sidebar -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-label="Site menu">
+    <div class="drawer__head">
+      <a class="drawer__brand" href="index.html">Aether AI</a>
+      <button class="drawer__close" id="menu-close" type="button" aria-label="Hide sidebar">&times;</button>
+    </div>
+
+    <nav aria-label="Guides">
+      <ul class="drawer__list">
+        <li>
+          <a href="index.html">
+            <span class="drawer__title">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="index.html#roadmap">
+            <span class="drawer__title">Full Curriculum</span>
+            <span class="drawer__desc">All 7 stages at a glance</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html">
+            <span class="drawer__title">Master Guide</span>
+            <span class="drawer__desc">ML, Deep Learning, GenAI &amp; Agents</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="drawer__label">Read in this order</p>
+      <ul class="drawer__list">
+        <li>
+          <a href="learn.html#ml">
+            <span class="drawer__title"><span class="drawer__step">1</span>Machine Learning</span>
+            <span class="drawer__desc">Supervised, unsupervised &amp; RL &middot; 10 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#dl">
+            <span class="drawer__title"><span class="drawer__step">2</span>Deep Learning</span>
+            <span class="drawer__desc">Neural nets, CNNs &amp; Transformers &middot; 14 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#genai">
+            <span class="drawer__title"><span class="drawer__step">3</span>Generative AI</span>
+            <span class="drawer__desc">GANs, VAEs &amp; Diffusion models &middot; 12 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#llm">
+            <span class="drawer__title"><span class="drawer__step">4</span>Large Language Models</span>
+            <span class="drawer__desc">Self-attention, scaling &amp; RLHF &middot; 16 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="embeddings.html">
+            <span class="drawer__title"><span class="drawer__step">5</span>Embeddings &amp; Pinecone</span>
+            <span class="drawer__desc">Vector databases &amp; ANN search &middot; 15 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="rag.html" aria-current="page">
+            <span class="drawer__title"><span class="drawer__step">6</span>RAG Architecture</span>
+            <span class="drawer__desc">Retrieval pipelines &amp; rerankers &middot; 18 min</span>
+          </a>
+        </li>
+        <li>
+          <a href="learn.html#agentic">
+            <span class="drawer__title"><span class="drawer__step">7</span>Agentic AI</span>
+            <span class="drawer__desc">ReAct, tool calling &amp; multi-agent &middot; 14 min</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="drawer__label">Deep Dives</p>
+      <ul class="drawer__soon">
+        <li>Fine-tuning with LoRA &amp; QLoRA</li>
+        <li>Graph RAG with Neo4j</li>
+        <li>Model Quantization (GGUF &amp; AWQ)</li>
+        <li>AI Safety &amp; Guardrails</li>
+      </ul>
+    </nav>
+
+    <p class="drawer__foot">Short guides in plain English, written for engineers and builders.</p>
+  </aside>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+      <div class="article">
+        <span class="eyebrow">Production AI Architecture &middot; Stage 06</span>
+        <h1>Retrieval-Augmented Generation (RAG)</h1>
+        <p class="hero__lead">
+          Pre-trained LLMs are brilliant reasoners, but terrible databases: their memory freezes at training cutoff, they hallucinate facts with high confidence, and they cannot see your company's private documents. RAG solves this by turning a closed-book guessing game into an open-book exam.
+        </p>
+        <div class="hero__meta">
+          <span>Stage 06</span> &middot; <span>18 min read</span> &middot; <span>High-Res Architecture SVGs &amp; Python Pipeline</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Metrics Row -->
+    <section class="article" style="margin-top: -30px; margin-bottom: 40px;">
+      <div class="metric-row">
+        <div class="metric-box">
+          <span class="val">&gt; 94%</span>
+          <span class="label">Hallucination Reduction with Grounding</span>
+        </div>
+        <div class="metric-box">
+          <span class="val">1/100th</span>
+          <span class="label">Cost Compared to Continual Fine-Tuning</span>
+        </div>
+        <div class="metric-box">
+          <span class="val">+38%</span>
+          <span class="label">Precision Boost using Cross-Encoder Rerankers</span>
+        </div>
+        <div class="metric-box">
+          <span class="val">Real-Time</span>
+          <span class="label">Knowledge Updates without Re-training</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chapter 1: Why RAG -->
+    <article class="article">
+      <section id="why-rag">
+        <h2>1. Why RAG? The Open-Book Paradigm</h2>
+        <p>
+          When you prompt a raw Large Language Model like GPT-4 or Claude with a domain-specific question, the model must rely entirely on the probabilistic associations compressed into its neural network weights during pre-training.
+        </p>
+        <p>
+          This leads to three fatal limitations in enterprise software:
+        </p>
+        <div class="feat-grid">
+          <div class="feat-card">
+            <span class="feat-card__tag">Fatal Issue 1</span>
+            <h4>Hallucinations</h4>
+            <p>LLMs are probabilistic token predictors, not truthful knowledge lookups. When an LLM lacks information, it hallucinates plausible-sounding citations, APIs, and legal policies.</p>
+          </div>
+          <div class="feat-card">
+            <span class="feat-card__tag">Fatal Issue 2</span>
+            <h4>Knowledge Cutoffs</h4>
+            <p>Training a frontier model costs millions of dollars. Once trained, its knowledge is frozen in time. It knows nothing about changes that occurred yesterday.</p>
+          </div>
+          <div class="feat-card">
+            <span class="feat-card__tag">Fatal Issue 3</span>
+            <h4>No Private Context</h4>
+            <p>Foundation models have never seen your company's proprietary codebases, internal Notion wikis, customer support tickets, or confidential HR manuals.</p>
+          </div>
+        </div>
+
+        <div class="callout callout--pro">
+          <strong>The RAG Analogy:</strong> Think of a raw LLM as a student sitting for a medical licensing exam with memory alone (closed-book). <strong>RAG</strong> gives the student full access to an indexed library of verified medical reference books (open-book) and instructs them: <em>"Find the exact chapters, cite the page numbers, and synthesize your answer strictly from those sources."</em>
+        </div>
+
+        <div class="table-wrap">
+          <table class="ai-table">
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Fine-Tuning (SFT)</th>
+                <th>Retrieval-Augmented Generation (RAG)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Purpose</strong></td>
+                <td>Teaching new <em>behaviors</em>, tones, formats, or specialized syntaxes.</td>
+                <td>Injecting up-to-date, factual, proprietary <em>knowledge</em>.</td>
+              </tr>
+              <tr>
+                <td><strong>Data Freshness</strong></td>
+                <td>Static (requires periodic expensive retraining runs).</td>
+                <td>Dynamic (update the vector database instantly in real-time).</td>
+              </tr>
+              <tr>
+                <td><strong>Hallucination Risk</strong></td>
+                <td>High (model weights can still fabricate facts).</td>
+                <td>Very Low (answer is anchored in retrieved citations).</td>
+              </tr>
+              <tr>
+                <td><strong>Auditability &amp; Citations</strong></td>
+                <td>Black box (impossible to pinpoint which parameter produced a fact).</td>
+                <td>100% Traceable (returns exact source chunk UUID, file, and page).</td>
+              </tr>
+              <tr>
+                <td><strong>Access Control (RBAC)</strong></td>
+                <td>Impossible (all fine-tuned knowledge is merged into weights).</td>
+                <td>Native (apply user permission filters during vector search).</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SVG DIAGRAM 1: End-to-End RAG Architecture -->
+      <section class="diag-card" id="architecture">
+        <div class="diag-card__wrap">
+          <div class="diag-header">
+            <span class="diag-badge diag-badge--rag">System Architecture 01</span>
+            <h3>End-to-End Advanced RAG Pipeline</h3>
+            <p>The complete lifecycle of enterprise RAG: from asynchronous document ingestion and hierarchical chunking, to hybrid retrieval, cross-encoder reranking, and grounded LLM generation with citations.</p>
+          </div>
+
+          <div class="diag-svg-wrap">
+            <svg viewBox="0 0 940 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="940" height="500" fill="#07090e" rx="12"/>
+              <defs>
+                <linearGradient id="grad-p1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#38bdf8"/>
+                  <stop offset="100%" stop-color="#818cf8"/>
+                </linearGradient>
+                <linearGradient id="grad-p2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#4ade80"/>
+                  <stop offset="100%" stop-color="#22c55e"/>
+                </linearGradient>
+                <linearGradient id="grad-p3" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#fb923c"/>
+                  <stop offset="100%" stop-color="#f43f5e"/>
+                </linearGradient>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b"/>
+                </marker>
+                <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+                </marker>
+                <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#4ade80"/>
+                </marker>
+                <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1 L 8 5 L 0 9 z" fill="#fb923c"/>
+                </marker>
+              </defs>
+
+              <!-- PHASE A: Ingestion Pipeline (Left) -->
+              <rect x="25" y="30" width="260" height="440" rx="10" fill="rgba(56, 189, 248, 0.03)" stroke="rgba(56, 189, 248, 0.2)"/>
+              <rect x="40" y="45" width="230" height="26" rx="6" fill="rgba(56, 189, 248, 0.15)"/>
+              <text x="50" y="62" fill="#38bdf8" font-size="11" font-weight="700" letter-spacing="0.05em">PHASE 1: INGESTION &amp; INDEXING</text>
+
+              <!-- Doc formats -->
+              <rect x="45" y="85" width="220" height="60" rx="8" fill="#111522" stroke="#1e293b"/>
+              <text x="60" y="110" fill="#f8fafc" font-size="12" font-weight="600">Enterprise Documents</text>
+              <text x="60" y="130" fill="#64748b" font-size="10">PDFs, Confluence, Git, SQL Tables</text>
+
+              <path d="M 155 145 L 155 170" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+              <!-- Chunking Engine -->
+              <rect x="45" y="175" width="220" height="70" rx="8" fill="#111522" stroke="#1e293b"/>
+              <text x="60" y="200" fill="#38bdf8" font-size="12" font-weight="600">Semantic &amp; Window Chunking</text>
+              <text x="60" y="220" fill="#94a3b8" font-size="10">• 500-token chunks + 10% overlap</text>
+              <text x="60" y="235" fill="#94a3b8" font-size="10">• Metadata tagging (doc_id, author)</text>
+
+              <path d="M 155 245 L 155 270" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+              <!-- Embedding Model -->
+              <rect x="45" y="275" width="220" height="65" rx="8" fill="#111522" stroke="#1e293b"/>
+              <text x="60" y="300" fill="#f8fafc" font-size="12" font-weight="600">Dense Embedding Model</text>
+              <text x="60" y="320" fill="#a855f7" font-size="10">text-embedding-3 / Voyage-3 (1536D)</text>
+
+              <path d="M 155 340 L 155 365" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+              <!-- Vector DB Store -->
+              <rect x="45" y="370" width="220" height="80" rx="8" fill="#0b1712" stroke="#22c55e"/>
+              <text x="60" y="395" fill="#4ade80" font-size="12" font-weight="700">Pinecone Vector Database</text>
+              <text x="60" y="415" fill="#86efac" font-size="10">• HNSW Graph Indexing</text>
+              <text x="60" y="432" fill="#86efac" font-size="10">• Dense Vectors + Sparse BM25</text>
+
+              <!-- Arrow from Pinecone to Retrieval -->
+              <path d="M 265 410 C 310 410, 310 320, 340 320" stroke="#4ade80" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow-green)"/>
+
+              <!-- PHASE B: Retrieval & Rerank (Center) -->
+              <rect x="340" y="30" width="265" height="440" rx="10" fill="rgba(74, 222, 128, 0.03)" stroke="rgba(74, 222, 128, 0.2)"/>
+              <rect x="355" y="45" width="235" height="26" rx="6" fill="rgba(74, 222, 128, 0.15)"/>
+              <text x="365" y="62" fill="#4ade80" font-size="11" font-weight="700" letter-spacing="0.05em">PHASE 2: RETRIEVE &amp; RERANK</text>
+
+              <!-- User Query Box -->
+              <rect x="360" y="85" width="225" height="60" rx="8" fill="#1e1b4b" stroke="#6366f1"/>
+              <text x="375" y="110" fill="#c7d2fe" font-size="12" font-weight="600">User Query &amp; Question</text>
+              <text x="375" y="130" fill="#a5b4fc" font-size="10">"What is our cluster failover SLA?"</text>
+
+              <path d="M 472 145 L 472 170" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <!-- Query Transformation / HyDE -->
+              <rect x="360" y="175" width="225" height="70" rx="8" fill="#111522" stroke="#1e293b"/>
+              <text x="375" y="200" fill="#f8fafc" font-size="12" font-weight="600">Query Rewrite &amp; HyDE</text>
+              <text x="375" y="220" fill="#94a3b8" font-size="10">• Strips conversational noise</text>
+              <text x="375" y="235" fill="#94a3b8" font-size="10">• Generates hypothetical answer</text>
+
+              <path d="M 472 245 L 472 270" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+              <!-- Hybrid Search Node -->
+              <rect x="360" y="275" width="225" height="65" rx="8" fill="#111522" stroke="#22c55e"/>
+              <text x="375" y="300" fill="#4ade80" font-size="12" font-weight="600">Hybrid Search (Dense + Sparse)</text>
+              <text x="375" y="320" fill="#86efac" font-size="10">Retrieves candidate Top-50 chunks</text>
+
+              <path d="M 472 340 L 472 365" stroke="#fb923c" stroke-width="2" marker-end="url(#arrow-orange)"/>
+
+              <!-- Cross-Encoder Reranker -->
+              <rect x="360" y="370" width="225" height="80" rx="8" fill="#2d1b06" stroke="#f59e0b"/>
+              <text x="375" y="395" fill="#fbbf24" font-size="12" font-weight="700">Cross-Encoder Reranker</text>
+              <text x="375" y="415" fill="#fed7aa" font-size="10">• Cohere Rerank / BGE-Reranker</text>
+              <text x="375" y="432" fill="#fbbf24" font-size="10">• Filters Top-50 down to Top-5 gold chunks</text>
+
+              <path d="M 585 410 C 620 410, 620 200, 650 200" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-orange)"/>
+
+              <!-- PHASE C: Generation & Synthesis (Right) -->
+              <rect x="650" y="30" width="265" height="440" rx="10" fill="rgba(251, 146, 60, 0.03)" stroke="rgba(251, 146, 60, 0.2)"/>
+              <rect x="665" y="45" width="235" height="26" rx="6" fill="rgba(251, 146, 60, 0.15)"/>
+              <text x="675" y="62" fill="#fb923c" font-size="11" font-weight="700" letter-spacing="0.05em">PHASE 3: SYNTHESIS &amp; CITATION</text>
+
+              <!-- Prompt Construction -->
+              <rect x="670" y="160" width="225" height="90" rx="8" fill="#111522" stroke="#1e293b"/>
+              <text x="685" y="185" fill="#f8fafc" font-size="12" font-weight="600">Prompt Augmentation</text>
+              <text x="685" y="205" fill="#94a3b8" font-size="10">System: "Answer strictly using context."</text>
+              <text x="685" y="222" fill="#f59e0b" font-size="10">Context: [Top-5 Reranked Chunks]</text>
+              <text x="685" y="238" fill="#94a3b8" font-size="10">Question: [Original Prompt]</text>
+
+              <path d="M 782 250 L 782 280" stroke="#fb923c" stroke-width="2" marker-end="url(#arrow-orange)"/>
+
+              <!-- LLM Generator -->
+              <rect x="670" y="285" width="225" height="75" rx="8" fill="#111522" stroke="#38bdf8"/>
+              <text x="685" y="310" fill="#38bdf8" font-size="12" font-weight="700">Foundation LLM</text>
+              <text x="685" y="330" fill="#94a3b8" font-size="10">GPT-4o, Claude 3.5 Sonnet, Llama 3</text>
+              <text x="685" y="347" fill="#64748b" font-size="10">Temperature: 0.0 &middot; Strict Grounding</text>
+
+              <path d="M 782 360 L 782 385" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+              <!-- Final Output with Citations -->
+              <rect x="670" y="390" width="225" height="70" rx="8" fill="#0b1712" stroke="#22c55e"/>
+              <text x="685" y="415" fill="#4ade80" font-size="12" font-weight="700">Grounded Response</text>
+              <text x="685" y="432" fill="#86efac" font-size="10">"The cluster SLA is 99.99% [1]."</text>
+              <text x="685" y="448" fill="#64748b" font-size="10">Sources: [1] ops_manual_v3.pdf:p14</text>
+            </svg>
+          </div>
+
+          <div class="diag-takeaway">
+            <span class="icon">🚀</span>
+            <div>
+              <strong>Architecture Highlights:</strong> Notice the two-stage retrieval in Phase 2: Hybrid search casts a wide net (Top-50 chunks), and the computationally intensive Cross-Encoder reranker selects the top 5 most relevant passages before passing them to the LLM.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 2: Chunking Strategies -->
+      <section id="chunking">
+        <h2>2. Chunking Strategies: The Quality Bottleneck</h2>
+        <p>
+          The single most common mistake in enterprise RAG is treating chunking as an afterthought. If your chunk is too small (e.g. 50 tokens), it loses the broader semantic context. If your chunk is too large (e.g. 2,000 tokens), it dilutes the embedding vector with too many distinct topics, causing search recall to plummet.
+        </p>
+
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="flow-step__num">1</div>
+            <div class="flow-step__content">
+              <h4>Fixed-Size Chunking with Sliding Window Overlap</h4>
+              <p>Splits documents into fixed token lengths (e.g. 512 tokens) with a 10–20% sliding overlap (e.g. 50 tokens). The overlap ensures that critical sentences spanning chunk boundaries are not chopped in half.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__num">2</div>
+            <div class="flow-step__content">
+              <h4>Sentence Window Retrieval (Small-to-Big)</h4>
+              <p>Embeds individual sentences (or 100-token micro-chunks) for pinpoint retrieval accuracy. Once retrieved, the retrieval engine automatically expands the context to include 3 sentences before and 3 sentences after the match when constructing the LLM prompt.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__num">3</div>
+            <div class="flow-step__content">
+              <h4>Semantic Chunking (Embedding Distance Boundaries)</h4>
+              <p>Instead of arbitrary token counts, semantic chunking calculates the cosine similarity between consecutive sentences. When the similarity drops below a dynamic threshold, it signals a shift in topic and inserts a natural chunk boundary.</p>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-step__num">4</div>
+            <div class="flow-step__content">
+              <h4>Hierarchical / Parent-Document Chunking</h4>
+              <p>Splits documents into large 1,500-token parent documents and smaller 200-token child chunks. Only the child chunks are embedded and indexed in Pinecone. When a child chunk matches the query, the system retrieves its <em>entire parent chunk</em> to pass to the LLM, giving the generator full, rich surrounding context.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 3: Advanced RAG Strategies -->
+      <section id="advanced">
+        <h2>3. Advanced RAG: Beyond Naive Retrieval</h2>
+        <p>
+          "Naive RAG" (embed query &rarr; vector search &rarr; prompt LLM) fails in production when queries are ambiguous, user vocabulary differs from document jargon, or information is spread across multiple documents. Modern systems utilize <strong>Advanced Modular RAG</strong>:
+        </p>
+
+        <div class="feat-grid">
+          <div class="feat-card">
+            <span class="feat-card__tag">Query Transformation</span>
+            <h4>HyDE (Hypothetical Document Embeddings)</h4>
+            <p>Instead of embedding the user's raw question, you ask an LLM: <em>"Write a hypothetical paragraph answering this question."</em> You then embed that hallucinated answer and search Pinecone. Because document-to-document vector proximity is much closer than question-to-document vector proximity, search quality jumps drastically.</p>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">Precision Filter</span>
+            <h4>Cross-Encoder Rerankers</h4>
+            <p>Vector databases use <strong>Bi-Encoders</strong> (query and document are embedded independently into vectors, allowing fast dot products). A <strong>Cross-Encoder</strong> (like Cohere Rerank or BGE-Reranker-Large) feeds the query and chunk simultaneously into a transformer, computing full token-to-token cross-attention. It re-scores the Top-50 candidates into an ultra-accurate Top-5.</p>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">Multi-Route Dispatch</span>
+            <h4>Router RAG</h4>
+            <p>Not every question belongs in a vector database. A classifier evaluates incoming user intent: qualitative conceptual queries route to Pinecone, structured aggregations (<em>"What was our total revenue in Q3?"</em>) route to Text-to-SQL, and current event queries route to live Google Search APIs.</p>
+          </div>
+
+          <div class="feat-card">
+            <span class="feat-card__tag">Self-Correction</span>
+            <h4>Corrective RAG (CRAG) &amp; Self-RAG</h4>
+            <p>After retrieving chunks, an evaluator model grades whether the context is sufficient and relevant. If confidence is below 70%, CRAG triggers a fallback web search query to gather missing facts before allowing the generator to answer.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 4: RAG Evaluation -->
+      <section id="evaluation">
+        <h2>4. Evaluating RAG: The RAG Triad &amp; Ragas</h2>
+        <p>
+          How do you know if changing your chunk size from 500 to 256 improved your system? You cannot rely on vibes. Enterprise teams use automated LLM-as-a-judge frameworks like <strong>Ragas</strong> and <strong>TruLens</strong> to monitor the <strong>RAG Evaluation Triad</strong>:
+        </p>
+
+        <div class="table-wrap">
+          <table class="ai-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>What It Measures</th>
+                <th>Failure Mode If Low</th>
+                <th>How to Fix</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Context Relevance</strong></td>
+                <td>Are the retrieved chunks strictly focused on the user query, with no irrelevant fluff?</td>
+                <td>Noise in prompt &rarr; LLM gets confused or reaches context window limits.</td>
+                <td>Add Cross-Encoder Reranker, tune chunk size, or implement HyDE.</td>
+              </tr>
+              <tr>
+                <td><strong>Faithfulness (Groundedness)</strong></td>
+                <td>Is every claim in the LLM's final response directly supported by the retrieved context?</td>
+                <td>Hallucinations! The LLM is inventing facts not found in the context.</td>
+                <td>Lower temperature to 0.0, add strict negative prompts (<em>"If context doesn't contain X, say you don't know"</em>).</td>
+              </tr>
+              <tr>
+                <td><strong>Answer Relevance</strong></td>
+                <td>Did the model actually answer what the user asked, or did it deflect or miss the point?</td>
+                <td>Unhelpful answers, verbose non-sequiturs, or incomplete responses.</td>
+                <td>Improve prompt formatting, few-shot examples, or output schemas.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Chapter 5: Python Production Pipeline -->
+      <section id="code">
+        <h2>5. Complete Production Python Implementation</h2>
+        <p>
+          Here is a complete, working script combining document parsing, Pinecone vector search, Cross-Encoder reranking with Sentence-Transformers, and strict grounded LLM generation with exact source attribution.
+        </p>
+
+        <div class="code">
+<span class="c"># Requirements: pip install pinecone openai sentence-transformers</span>
+<span class="c">import os</span>
+<span class="c">from pinecone import Pinecone</span>
+<span class="c">from openai import OpenAI</span>
+<span class="c">from sentence_transformers import CrossEncoder</span>
+
+<span class="c"># Initialize clients and models</span>
+pc = Pinecone(api_key=os.environ.get(<span class="s">"PINECONE_API_KEY"</span>))
+ai = OpenAI(api_key=os.environ.get(<span class="s">"OPENAI_API_KEY"</span>))
+reranker = CrossEncoder(<span class="s">"cross-encoder/ms-marco-MiniLM-L-6-v2"</span>)
+
+index = pc.Index(<span class="s">"ai-knowledge-base"</span>)
+
+def run_advanced_rag_pipeline(user_query: str) -> dict:
+    <span class="c"># STEP 1: Generate Query Embedding</span>
+    print(f<span class="s">"Query: {user_query}"</span>)
+    emb_resp = ai.embeddings.create(
+        input=user_query,
+        model=<span class="s">"text-embedding-3-small"</span>
+    )
+    query_vector = emb_resp.data[0].embedding
+
+    <span class="c"># STEP 2: Coarse Retrieval from Pinecone (Top-20 candidates)</span>
+    search_results = index.query(
+        namespace=<span class="s">"production-guides"</span>,
+        vector=query_vector,
+        top_k=20,
+        include_metadata=True
+    )
+    candidate_chunks = search_results[<span class="s">"matches"</span>]
+
+    <span class="c"># STEP 3: Cross-Encoder Reranking</span>
+    <span class="c"># Form pairs of (query, candidate_text)</span>
+    pairs = [[user_query, match[<span class="s">"metadata"</span>][<span class="s">"text"</span>]] for match in candidate_chunks]
+    rerank_scores = reranker.predict(pairs)
+
+    <span class="c"># Attach rerank score and sort</span>
+    for i, match in enumerate(candidate_chunks):
+        match[<span class="s">"rerank_score"</span>] = float(rerank_scores[i])
+    
+    reranked_top5 = sorted(candidate_chunks, key=lambda x: x[<span class="s">"rerank_score"</span>], reverse=True)[:5]
+
+    <span class="c"># STEP 4: Format Context String with Source Identifiers</span>
+    context_blocks = []
+    for i, match in enumerate(reranked_top5, 1):
+        doc_id = match[<span class="s">"id"</span>]
+        text = match[<span class="s">"metadata"</span>][<span class="s">"text"</span>]
+        context_blocks.append(f<span class="s">"[{i}] (Document: {doc_id}):\n{text}"</span>)
+    
+    formatted_context = <span class="s">"\n\n"</span>.join(context_blocks)
+
+    <span class="c"># STEP 5: Augmented Generation with Strict Grounding System Prompt</span>
+    system_prompt = (
+        <span class="s">"You are an enterprise AI technical assistant. Answer the user's question "</span>
+        <span class="s">"STRICTLY using the verified context passages below.\n"</span>
+        <span class="s">"Rules:\n"</span>
+        <span class="s">"1. If the answer cannot be deduced from the context, state: 'Information not in context.'\n"</span>
+        <span class="s">"2. Do NOT extrapolate or assume facts.\n"</span>
+        <span class="s">"3. Always cite sources using inline brackets, e.g. [1], [2]."</span>
+    )
+
+    user_prompt = f<span class="s">"CONTEXT PASSAGES:\n{formatted_context}\n\nUSER QUESTION:\n{user_query}"</span>
+
+    completion = ai.chat.completions.create(
+        model=<span class="s">"gpt-4o"</span>,
+        temperature=0.0,  <span class="c"># Deterministic, factual output</span>
+        messages=[
+            {<span class="s">"role"</span>: <span class="s">"system"</span>, <span class="s">"content"</span>: system_prompt},
+            {<span class="s">"role"</span>: <span class="s">"user"</span>, <span class="s">"content"</span>: user_prompt}
+        ]
+    )
+
+    return {
+        <span class="s">"answer"</span>: completion.choices[0].message.content,
+        <span class="s">"sources"</span>: [m[<span class="s">"id"</span>] for m in reranked_top5]
+    }
+
+<span class="c"># Example invocation</span>
+if __name__ == <span class="s">"__main__"</span>:
+    response = run_advanced_rag_pipeline(<span class="s">"How do ReAct agent loops process tool outputs?"</span>)
+    print(<span class="s">"\n--- Synthesized Grounded Response ---"</span>)
+    print(response[<span class="s">"answer"</span>])
+    print(f<span class="s">"\nCited Document IDs: {response['sources']}"</span>)
+        </div>
+      </section>
+
+      <!-- Best Practices & Recap -->
+      <section class="recap" style="margin-top:60px;">
+        <h2>Production RAG Checklist</h2>
+        <ul>
+          <li><strong>Never skip the reranker:</strong> Adding a Cross-Encoder stage costs ~15ms of latency but increases precision by up to 35% by eliminating vector search false positives.</li>
+          <li><strong>Keep temperature at 0.0:</strong> For factual enterprise RAG, set temperature to zero. High temperature encourages creative token hallucination.</li>
+          <li><strong>Include metadata headers in chunks:</strong> Prepend document titles, breadcrumbs, and parent section headers directly into the text chunk before embedding so the vector model understands where the chunk came from.</li>
+          <li><strong>Track the evaluation triad:</strong> Continuously log Faithfulness, Answer Relevance, and Context Recall in production using Ragas or TruLens.</li>
+        </ul>
+      </section>
+
+      <!-- Keep learning cards -->
+      <div class="more">
+        <p class="more__label">Keep learning</p>
+        <div class="more__grid">
+          <a href="learn.html#agentic">
+            <strong>Stage 7: Agentic AI</strong>
+            <span>Autonomous systems, tool execution, multi-agent swarms and self-reflection loops.</span>
+            <em>Next guide &rarr;</em>
+          </a>
+          <a href="embeddings.html">
+            <strong>Stage 5: Embeddings &amp; Pinecone</strong>
+            <span>Review high-dimensional vector spaces, HNSW graphs, and vector database internals.</span>
+            <em>Explore Embeddings &rarr;</em>
+          </a>
+          <a href="learn.html#llm">
+            <strong>Stage 4: LLMs Deep Dive</strong>
+            <span>Understand self-attention math, tokenization, and RLHF alignment.</span>
+            <em>Explore LLMs &rarr;</em>
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="article">
+      <p><a href="index.html">&larr; Back to Aether AI Home</a> &middot; Built for engineers and AI architects.</p>
+    </div>
+  </footer>
+
+  <!-- Script for sidebar toggle and animations -->
+  <script>
+    (function () {
+      var body = document.body;
+      var openBtn = document.getElementById('menu-open');
+      var closeBtn = document.getElementById('menu-close');
+      var scrim = document.getElementById('scrim');
+      var drawer = document.getElementById('drawer');
+
+      var wide = window.matchMedia('(min-width: 1025px)');
+      var KEY = 'sidebar-closed';
+      var stored = null;
+      try { stored = localStorage.getItem(KEY); } catch (e) {}
+      if (stored === '1') body.classList.add('side-closed');
+
+      function syncAria() {
+        var visible = wide.matches ? !body.classList.contains('side-closed') : body.classList.contains('menu-open');
+        drawer.setAttribute('aria-hidden', String(!visible));
+        openBtn.setAttribute('aria-expanded', String(visible));
+      }
+      function setOpen(open) {
+        if (wide.matches) {
+          body.classList.toggle('side-closed', !open);
+          try { localStorage.setItem(KEY, open ? '0' : '1'); } catch (e) {}
+        } else {
+          body.classList.toggle('menu-open', open);
+          (open ? closeBtn : openBtn).focus();
+        }
+        syncAria();
+      }
+      function isOpen() {
+        return wide.matches ? !body.classList.contains('side-closed') : body.classList.contains('menu-open');
+      }
+      openBtn.addEventListener('click', function () { setOpen(!isOpen()); });
+      closeBtn.addEventListener('click', function () { setOpen(false); });
+      scrim.addEventListener('click', function () { setOpen(false); });
+      drawer.querySelectorAll('[data-close]').forEach(function (a) {
+        a.addEventListener('click', function () { if (!wide.matches) setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !wide.matches && body.classList.contains('menu-open')) setOpen(false);
+      });
+      var onChange = function () { body.classList.remove('menu-open'); syncAria(); };
+      if (wide.addEventListener) wide.addEventListener('change', onChange); else wide.addListener(onChange);
+      syncAria();
+    })();
+  </script>
+</body>
+</html>
